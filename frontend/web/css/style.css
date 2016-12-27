@@ -496,7 +496,7 @@ a.create-best-project:hover {
 
 .members-list {
     border-top: 1px solid #f3f3f3;
-    margin: 0 100px;
+    /*margin: 0 100px;*/
 }
 
 .members-list.final {
@@ -504,7 +504,7 @@ a.create-best-project:hover {
 }
 
 .members-list .item {
-    padding: 5px 10px;
+    padding: 15px 10px;
     border-bottom: 1px solid #f3f3f3;
 }
 .members-list .item.item-big {
@@ -515,7 +515,7 @@ a.create-best-project:hover {
 }
 .members-list .item .member-detail a {
     color: #74bd00;
-    text-decoration: none;
+    text-decoration: underline;
 }
 .members-list .item .member-detail .country {
     position: relative;
@@ -551,14 +551,13 @@ a.create-best-project:hover {
 
 .members-list .item-big .options {
     float: right;
-    padding-top: 15px;
+    padding-top: 5px;
 }
 .members-list .item-big .options .winner-btn {
      padding: 5px;
      color: #74bd00;
      text-align: center;
      display: block;
-     width: 180px;
      border: 1px solid #74bd00;
      text-decoration: none;
  }
@@ -566,6 +565,16 @@ a.create-best-project:hover {
 .members-list .item-big .options .winner-btn.green {
     color: #fff;
     background: #74bd00;
+}
+
+.members__title{
+    font-weight: 600;
+    color: #4dbbde;
+    font-size: 18pt;
+}
+.members__competition-title{
+    font-weight: 800;
+    font-size: 27pt;
 }
 
 .main-text form {
@@ -890,4 +899,317 @@ a.btn-remove {
     font-size: 15px;
     margin: 0;
     padding-top: 5px;  
+}
+/*****************************************************************/
+.concurs-date{
+    float: left;
+    margin-top: 20px;
+}
+.concurs-date-count{
+    background: #32b0d9;
+    color:white;
+    padding: 8px 0;
+    width: 70px;
+    text-align: center;
+    float: left;
+    margin: 13px 0 0 15px
+}
+.concurs-date-count-minus{
+    background: #32b0d9;
+    color:white;
+    padding: 8px 0;
+    width: 170px;
+    text-align: center;
+    float: left;
+    margin: 13px 0 0 15px
+}
+.concurs-edit{
+    float: right;
+    margin: 22px 0 0 15px;
+}
+
+.concurs-priz-header, .concurs-org-header, .concurs-sponsor-header, .concurs-usl-header, .concurs-video-header{
+    font-size:18px;
+    color:black!important;
+    padding-top: 0px;
+    font-weight: bold;
+}
+.concurs-org-header{
+    margin-bottom: 13px;
+}
+.concurs-priz-price,.concurs-org-name, .concurs-sponsor-name{
+    color:#33b0d9;
+    font-size: 28px;
+    font-weight: bold
+}
+.concurs-priz-val{
+    color:#33b0d9;
+    font-size: 18px;
+}
+.concurs-priz-val sup{
+    top: -0.7em;
+    left: 2px;
+    text-transform: uppercase
+}
+.concurs-priz-plac{
+    color:#999999;
+    font-size: 14px;
+}
+.concurs-org-url,.concurs-sponsor-url{
+    color: #9bda44;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: 100;
+}
+.concurs-org-name{
+    height: 35px;
+}
+.concurs-sponsor-box{
+    float: left;
+    width: 200px;
+    margin-top:15px;
+}
+.competition-blocks .block#block-1 {
+    margin: auto;
+    width: 100%;
+}
+.concurs-tabs{
+    margin-top: 35px;
+}
+.concurs-tabs .nav-tabs>li.active>a, .concurs-tabs .nav-tabs>li.active>a:focus, .concurs-tabs .nav-tabs>li.active>a:hover {
+    color: white!important;
+    cursor: default;
+    background-color: #33b0d9!important;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.tab-content{
+    border: 1px solid #ddd;
+    padding: 0 15px 15px 15px;
+}
+.concurs-tabs .nav-tabs {
+     border-bottom: none;
+}
+.concurs-video-header{
+    margin-top:30px;
+}
+#block-1{
+    height: 300px;
+    position: relative;
+}
+.concurs-edit a:hover{
+    background: #74bd00!important;
+    text-decoration: none;
+}
+.adver-right:hover{
+    background: #74bd00!important;
+}
+.adver-a:hover{
+    text-decoration: none;
+}
+.adver-right{
+    color:white;
+    font-size: 15px;
+    background:#32b0d9;
+    text-align: center;
+    padding: 10px 0;
+}
+.concurs-layouts{
+    position: absolute;
+    height:50px;
+    width: 580px;
+    background: white;
+    z-index: 9999;
+    top:418px;
+    right:15px;
+}
+#block-6{
+    padding: 10px;
+    width: 100%;
+    background-color: white!important;
+    height: 50px;
+    position: relative;
+}
+#block-6 .block-btn{
+    background: #33b0d9;
+    color:white;
+    border:none;
+    height: 40px;
+}
+#block-6 .center a{
+    padding-top: 10px;
+    float: left;
+}
+#block-6 .block-content{
+    float: left;
+    width: 40px;
+    height: 40px;
+    border:1px solid #eeeeee;
+    margin-left: 10px;
+    text-align: center;
+}
+
+#block-6 .block-content p{
+    font-size: 16px;
+    line-height: 38px;
+    color:black;
+}
+.concurs-winner{
+    position: absolute;
+    z-index: 9999;
+    top:437px;
+    right: 15px;
+}
+.concurs-winner a{
+    font-size: 14px;
+    background: #00c733;
+    color:white;
+    padding:12px 15px;
+}
+.concurs-date-bg{
+    position: relative;
+}
+.concurs-date-romb{
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    background: #33b0d9;
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top:27px;
+    left:133px;
+}
+.concurs-count-romb{
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-bottom: 1px solid #eeeeee;
+    border-left: 1px solid #eeeeee;
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 99999;
+    top:26px;
+    left:197px;
+}
+.concurs-countu-romb{
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    background: white;
+    border-bottom: 1px solid #eeeeee;
+    border-left: 1px solid #eeeeee;
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 99999;
+    top:97px;
+    right:60px;
+}
+.concurs-winner a:hover{
+    text-decoration: none;
+    background: #74bd00;
+    color:white;
+}
+.concurs-uchastie{
+    position: absolute;
+    z-index: 9999;
+    top:141px;
+    left:435px;
+}
+.concurs-button{
+    font-size: 14px;
+    background: #00c733;
+    border:none;
+    color: white;
+    padding: 8px;
+}
+.concurs-button:hover{
+    background: #74bd00;
+}
+.concurs-count-user{
+    position: absolute;
+    width: 50px;
+    height: 38px;
+    border:1px solid #eeeeee;
+    text-align: center;
+    padding-top: 9px;
+    right:15px;
+    top:83px;
+}
+.winner-cup{
+    height: 220px;
+}
+.winner-header{
+    height: 220px;
+    text-align: center;
+}
+.winner-p1{
+    font-size: 28px;
+    color:black;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
+.winner-p2{
+    font-size: 24px;
+    color:#33b0d9;
+    font-weight: bold;
+}
+.winner-p2:before, .winner-p2:after{
+    content: '';
+    border: 1px solid rgba(51, 176, 217, 0.15);
+    display: block;
+    margin: 15px 0;
+}
+.winner .members-list{
+    width: 100%;
+    overflow: hidden;
+    margin: 0px;
+}
+.winner .item-position{
+    font-size: 24px!important;
+    color: #44b6dc!important;
+    font-weight:bold;
+    margin-left:25px;
+}
+.winner .item-position strong{
+    font-size: 24px!important;
+}
+.winner-btn-1{
+    width: 150px;
+}
+.winner-btn-2{
+    width: 400px;
+}
+.winner-msg{
+    width: 100%;
+    height:100px;
+    background: red;
+}
+#block-2{
+    margin-top: 20px;
+}
+.uchastie{
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    top:62px;
+    right:100px;
+}
+.uchastie button{
+    font-size: 13px!important;
+    background: #76cb00;
+}
+.video-final{
+    text-align: center;
+    margin: 30px 0;
+}
+.btn-addvideo{
+    width: 100%;
+    background: #32b0d9;
+    color: #fff;
 }

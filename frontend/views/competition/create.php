@@ -1,10 +1,9 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\SignupForm */
+/* @var $model common\models\Competition */
 
-use kartik\datetime\DateTimePicker;
+use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -46,7 +45,7 @@ $videoInfo = '<div class="video-info">
 </div>
 
 <?= $form->field($model, 'video_url', ['template' => '<div class="form-group">{label}' . $videoInfo . '{input}</div>'])->textInput(["placeholder" => "Ссылка на видео с youtube (не обязательно)"]) ?>
-<?= $form->field($model, 'description')->textarea(["placeholder" => "Краткое описание конкурса"])->label("Краткое описание конкурса") ?>
+<?= $form->field($model, 'description')->textarea(["placeholder" => "Условие конкурса"])->label("Условие конкурса") ?>
 <div class="organizer-block">
     <?= $form->field($model, 'organizer')->textInput([])->label("Организатор конкурса (при желании Вы можете изменить имя или организацию на определенный конкурс)") ?>
     <?= $form->field($model, 'organizer_url', ['template' => '<div class="form-group">{input}</div>'])->textInput(["placeholder" => "Ссылка на сайт, группу или страницу соц. сети (не обязательно)"])->label("") ?>
@@ -99,7 +98,7 @@ $videoInfo = '<div class="video-info">
 </div>
 
 
-<div id="condition-layer">
+<!--<div id="condition-layer">
     <div class="form-group field-competition-condition">
         <label class="control-label">Условия участия</label>
     </div>
@@ -117,11 +116,11 @@ $videoInfo = '<div class="video-info">
 </div>
 <div class="add-form-item">
     <i class="fa fa-plus" aria-hidden="true"></i> <a href="#" id="add-condition">Добавить условие</a>
-</div>
+</div>-->
 
 <div class="row">
     <div class="col-md-6">
-        <?= $form->field($model, 'date')->widget(DateTimePicker::classname(), [
+        <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
             'convertFormat' => true,
             "options" => [
                 "placeholder" => "Выберите дату розыгрыша",
@@ -129,15 +128,15 @@ $videoInfo = '<div class="video-info">
             'pluginOptions' => [
                 'autoclose' => true,
                 "language" => "ru",
-                'format' => 'php:d.m.Y H:i',
-                'startDate' => date("d.m.Y H:i"),
+                'format' => 'php: d-m-Y',
+                'startDate' => date("d-m-Y"),
                 'todayHighlight' => true
             ]
         ]) ?>
     </div>
-    <div class="col-md-6">
-        <?= $form->field($model, 'country_id')->dropDownList(\common\helpers\ArrayHelper::map(\common\models\Country::find()->orderBy("pos")->all(), "id", "name"), ["prompt" => "Выберите страну (не обязательно)"]) ?>
-    </div>
+    <!--<div class="col-md-6">
+        <?/*= $form->field($model, 'country_id')->dropDownList(\common\helpers\ArrayHelper::map(\common\models\Country::find()->orderBy("pos")->all(), "id", "name"), ["prompt" => "Выберите страну (не обязательно)"]) */?>
+    </div>-->
 </div>
 
 <div class="form-group" style="text-align: center;">

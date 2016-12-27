@@ -26,6 +26,8 @@ use common\models\search\Competition as CompetitionSearch;
 
 /**
  * Site controller
+ *
+ * @var \common\models\User $curuser
  */
 class CompetitionController extends Controller
 {
@@ -37,11 +39,11 @@ class CompetitionController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'save-size', 'winner', 'close', 'delete', 'edit'],
+                'only' => ['create', 'save-size', 'winner', 'close', 'delete', 'edit', 'users'],
                 'rules' => [
 
                     [
-                        'actions' => ['create', 'save-size', 'winner', 'close', 'delete', 'edit'],
+                        'actions' => ['create', 'save-size', 'winner', 'close', 'delete', 'edit', 'users'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -86,7 +88,6 @@ class CompetitionController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
-
     public function actionView($id)
     {
         $model = Competition::find()->where(["id" => $id, "active" => true])->one();
@@ -101,6 +102,7 @@ class CompetitionController extends Controller
 //                $this->layout = "competition_new";
 //            }
         }
+//        $curuser = Yii::$app->user->identity ?: '';
 
         $form = new CompetitionUser();
         $form->competition_id = $model->id;
@@ -112,14 +114,18 @@ class CompetitionController extends Controller
             Yii::$app->session->remove("competition_user_name");
             Yii::$app->session->remove("competition_user_url");
         }
+        $form->load(Yii::$app->request->post());
+        
         if (($form->load(Yii::$app->request->post()) || $fromSession) && $form->validate()) {
+            
             $form->competition_id = $model->id;
             $form->date = Date::now();
             $form->makeUrl();
+
             if ($form->checkUrl()) {
                 $form->save(false);
                 CurrentUser::setFlashSuccess("Спасибо, что стали участником конкурса. Ожидайте дату розыгрыша, желаем Вам успеха!");
-                CurrentUser::setFlash("competition", "Спасибо, что стали участником конкурса. Ожидайте дату розыгрыша, желаем Вам успеха!");
+//                CurrentUser::setFlash("competition", "Спасибо, что стали участником конкурса. Ожидайте дату розыгрыша, желаем Вам успеха!");
                 return $this->redirect("/id" . $model->id);
             }
             $form->url = $form->getProfileUrl();
@@ -162,7 +168,7 @@ class CompetitionController extends Controller
                     $file = File::find()->where(["id" => $model->photo_file_id])->one();
 
                     $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                    $sized = File::getPath($file->path, "500_500_th", true) . "." . $file->extension;
+                    $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
                     $imgine = new \yii\imagine\Image();
                     $img = $imgine->getImagine()->open($sized);
                     $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
@@ -228,14 +234,14 @@ class CompetitionController extends Controller
         $oldPhoto = $model->photo_file_id;
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->id;
-            $model->date = $model->date ? date("Y-m-d H:i:s", strtotime($model->date)) : null;
+            $model->date = $model->date ? date("Y-m-d", strtotime($model->date)) : null;
             if ($model->validate() && $model->save()) {
                 if ($model->photo_file_id && !is_null($model->x1) && !is_null($model->x2) && !is_null($model->y1) && !is_null($model->y2)) {
                     /** @var File $file */
                     $file = File::find()->where(["id" => $model->photo_file_id])->one();
 
                     $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                    $sized = File::getPath($file->path, "500_500_th", true) . "." . $file->extension;
+                    $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
                     $imgine = new \yii\imagine\Image();
                     $img = $imgine->getImagine()->open($sized);
                     $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
@@ -303,6 +309,7 @@ class CompetitionController extends Controller
                 return $this->redirect("/id" . $model->id);
             }
         }
+//        $model
         return $this->render('edit', [
             'model' => $model,
         ]);
@@ -315,20 +322,19 @@ class CompetitionController extends Controller
             if ($model->photo_file_id && !is_null($model->x1) && !is_null($model->x2) && !is_null($model->y1) && !is_null($model->y2)) {
                 /** @var File $file */
                 $file = File::find()->where(["id" => $model->photo_file_id])->one();
-
+                
                 if ($file->user_id != Yii::$app->user->id) {
                     throw new HttpException(403);
                 }
-
                 $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                $sized = File::getPath($file->path, "500_500_th", true) . "." . $file->extension;
+                $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
                 $imgine = new \yii\imagine\Image();
                 $img = $imgine->getImagine()->open($sized);
                 $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
                 $img->save($origin, ['quality' => 90]);
                 $file->clear();
 
-                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(280, 280, true)]]);
+                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(636, 318, true)]]);
             }
         }
         return Json::encode(["code" => 1]);
@@ -384,7 +390,7 @@ class CompetitionController extends Controller
 
     public function actionClose($id)
     {
-        $model = Competition::find()->where(["id" => $id, "active" => true, "open" => true])->one();
+        $model = Competition::find()->where(["id" => $id, "active" => true])->one();
         if (!$model) {
             throw new HttpException(404);
         }
@@ -395,17 +401,26 @@ class CompetitionController extends Controller
             return $this->redirect("/id" . $model->id);
         }
 
-        if (isset($_POST["Competition"])) {
+        if($model->open){
             $model->open = false;
-            if (isset($_POST["Competition"]["video_url"]) && trim($_POST["Competition"]["video_url"])) {
-                $model->video_url = trim($_POST["Competition"]["video_url"]);
-            }
             $model->save();
             CurrentUser::setFlashSuccess("Вы завершили конкурс, спасибо, что воспользовались нашим сервисом. Надеемся скоро снова увидеть у нас Ваши новые конкурсы.");
-            return $this->redirect("/id" . $model->id);
+            Yii::app()->controller->refresh();
+        } else{
+            if (isset($_POST["Competition"])) {
+                if (isset($_POST["Competition"]["video_url"]) && trim($_POST["Competition"]["video_url"])) {
+                    $model->video_url = trim($_POST["Competition"]["video_url"]);
+                }
+                $model->save();
+                CurrentUser::setFlashSuccess("Вы успешно добавили видеоотчет.");;
+//                $this->refresh();
+                return $this->redirect("/id" . $model->id);
+            }
         }
-
-        return $this->render("close", ["model" => $model]);
+//        
+        CurrentUser::setFlashWarning("Возникла непредвиденная ошибка.");
+        return $this->redirect("/competition/winner?id=" . $model->id);
+//        return $this->render("winner", ["model" => $model]);
     }
 
     public function actionSetWinner()
@@ -510,5 +525,20 @@ class CompetitionController extends Controller
         }
         return Json::encode(["code" => 0]);
     }
+    
+    public function actionUsers($id = 0)
+    {
+        $model = Competition::find()->where(["id" => $id, "active" => true])->one();
+        if (!$model || !$model->open) {
+            throw new HttpException(404);
+        }
+        if (Yii::$app->user->isGuest || !$model->isMy()) {
+            throw new HttpException(401);
+        }
 
+        $searchModel = new CompetitionUserSearch;
+        $dataProvider = $searchModel->search($_GET, $model->id);
+        
+        return $this->render("users", ["competition" => $model, "users" => $dataProvider]);
+    }
 }

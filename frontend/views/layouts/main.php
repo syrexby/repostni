@@ -37,14 +37,18 @@ AppAsset::register($this);
 <div class="container"><div class="row">
 <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
     </div></div>
-<?= $this->render("_advert", ["border" => true, "button" => false]) ?>
 
 
 <div class="container">
-    <div class="row main-text">
-        <?= \common\components\CurrentUser::showFlash() ?>
-        <h1><?= $this->title ?></h1>
-        <?= $content ?>
+    <div class="row">
+        <div class="col-md-9" style="position: relative;">
+            <?= \common\components\CurrentUser::showFlash() ?>
+            <?= $content ?>
+        </div>
+
+        <div class="col-md-3" style="padding-right: 0">
+            <?= $this->render("_advert_right", ["border" => true, "button" => false]) ?>
+        </div>
     </div>
 </div>
 

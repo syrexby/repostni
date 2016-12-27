@@ -28,7 +28,7 @@ class AuthHandler
     public function handle()
     {
         $competition = Yii::$app->session->get("competition_member");
-
+        
         $attributes = $this->client->getUserAttributes();
 
         $social = $this->client->getId();

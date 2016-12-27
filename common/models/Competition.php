@@ -23,6 +23,7 @@ class Competition extends BaseCompetition
         return array_merge(parent::rules(), [
             [["x1", "x2", "y1", "y2"], "safe"],
             ["date", "required"],
+//            ["date",'date', 'format'=>'php: dd-mm-Y'],
             ["name", 'string', 'max' => 50]
         ]);
     }

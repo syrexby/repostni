@@ -48,6 +48,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
 
 <?= $this->render("_head") ?>
 
+
 <div class="container about-banner">
     <div class="row">
         <div class="col-md-9 about-banner-text">
@@ -68,6 +69,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
         <?= \common\components\CurrentUser::showFlash() ?>
     </div>
 </div>
+
 
 <?= $this->render("_advert", ["border" => false, "button" => true]) ?>
 

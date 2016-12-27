@@ -60,10 +60,11 @@ $(document).ready(function () {
     var myDropzone;
 
     if ($("div#image-upload").length) {
+        var controller =  window.location.pathname.split('/')[1];
         var model = $("div#image-upload").data("model");
         var modelU = model.charAt(0).toUpperCase() + model.substr(1);;
         myDropzone = new Dropzone("div#image-upload", {
-            url: "/file/upload",
+            url: "/file/upload?"+(controller == 'advert' ? "width=220&height=127" : ""),
             uploadMultiple: false,
             paramName: "File[uploadFile]",
             maxFiles: 1,
@@ -85,12 +86,12 @@ $(document).ready(function () {
             $("#image-crop").html('<img src="' + result.result.url + '" id="image-canvas" />');
             $("#image-upload").hide();
             $("#image-crop-layer").show();
-            var x2 = 100, y2 = 100;
-            var aspectRatio = '1:1';
+            var x2 = controller == 'competition' ? 636 : 220, y2 = controller == 'competition' ? 318 : 127;
+            var aspectRatio = controller == 'competition' ? '1:0.5' : '0,577272727';
             if (model == "post") {
-                aspectRatio = '1:0.562';
-                x2 = 178;
-                y2 = 103;
+                aspectRatio = controller == 'competition' ? '1:0.5' : '0,577272727';
+                x2 = controller == 'competition' ? 636 : 220;
+                y2 = controller == 'competition' ? 318 : 127;
             }
             var html = '<input type="hidden" name="'+modelU+'[x1]" id="'+model+'_x1" value="0" />' +
                 '<input type="hidden" name="'+modelU+'[x2]" id="'+model+'_x2" value="'+x2+'" />' +
@@ -130,6 +131,7 @@ $(document).ready(function () {
 
 
     $("#save-crop").click(function () {
+        var controller =  window.location.pathname.split('/')[1];
         var x1 = $('#'+model+'_x1').val();
         var x2 = $('#'+model+'_x2').val();
 
@@ -139,12 +141,12 @@ $(document).ready(function () {
             y1: $('#'+model+'_y1').val(),
             y2: $('#'+model+'_y2').val()};
         var obj = {};
-        var maxWidth = 280;
+        var maxWidth = controller == 'competition' ? 636 : 220;
         if (model == "post") {
             obj.Post = values;
             $("#label-advert-image").hide();
             $("#post-preview img").hide();
-            maxWidth = 178;
+            maxWidth = controller == 'competition' ? 636 : 220;
         } else {
             obj.Competition = values;
         }
@@ -221,11 +223,9 @@ $(document).ready(function () {
     if ($("#delete-crop-image.image-exists").length) {
         var width = parseInt($("#delete-crop-image").data("width"));
         var pos = $("#image-after-crop").position();
-        if (width > 280) {
-            width = 280;
-        }
-
+        
         width = width + pos.left - 30;
+        console.log(width);
         $("#delete-crop-image").css("left", width + 'px');
     }
 
@@ -273,15 +273,15 @@ $(document).ready(function () {
         $("#winner-block-" + id).html("");
         $.post("/competition/set-winner", {prize: id}, function (data) {
             if (data.code == 0) {
-                var html = '<strong>' + data.result.name + '</strong><br /><div class="member-detail">';
+                var html = '<div style="float: left;"><strong>' + data.result.name + '</strong></div>';
                 if (data.result.country) {
-                    html += '<span class="country"><img src="/img/map.png"></span> '+data.result.country+' <span class="delimiter"> | </span>';
+                    html += ' ';
                 }
-                html += '<a href="'+data.result.url+'" target="_blank">'+data.result.url_text+'</a>';
+                html += '<div class="member-detail" style="float: left;"><a href="'+data.result.url+'" target="_blank"><i class="glyphicon glyphicon-link"></i> Ссылка</a></div>';
                 html += '</div>';
                 $("#winner-block-" + id).html(html);
                 _this.removeClass("green");
-                _this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Переизбрать');
+                _this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Перевыбрать');
             }
 
         }, "json");

@@ -12,18 +12,18 @@ $this->params['breadcrumbs'][] = 'Выбор победителя конкурс
 
 ?>
 
-<?= $this->render("_blocks", ["model" => $model]) ?>
+
 <?php
 $time = strtotime($model->date);
 ?>
-<h1 style="text-align: center;"><?= StringHelper::dec($model->getRightDays(true), ["Осталось", "Остался", "Осталось"]) ?> <strong><?= $model->getRightDays() ?></strong> до окончания конкурса</h1>
-
-<div style="text-align: center">
-    <p>Дата розыгрыша:
-        <strong><?= date("d", $time) . " " . \common\helpers\Date::ruMonth(date("m", $time), 1) . " " . date("Y", $time) ?>
-            , в <?= date("H:i", $time) ?></strong></p>
+<div class="winner">
+<div class="winner-cup col-md-4">
+    <img src="//repostni.com/img/cup.png" alt="">
 </div>
-
+<div class="winner-header col-md-8">
+    <p class="winner-p1"><?= $this->title?></p>
+    <p class="winner-p2">Выбор победителя</p>
+</div>
 <div class="members-list">
     <?php
     foreach (\common\models\CompetitionPrize::find()->where(["competition_id" => $model->id])->orderBy("position")->all() as $prize) {
@@ -33,45 +33,28 @@ $time = strtotime($model->date);
         <div class="item-position"><strong><?= $prize->position ?></strong> место</div>
         <div class="member-block" id="winner-block-<?= $prize->id ?>">
             <?php if ($winner) { ?>
+            <div style="float: left;">
             <strong><?= $winner->user->name ?></strong>
-            <br>
-            <div class="member-detail">
-                <?= $winner->user->country ? '<span class="country"><img src="/img/map.png"></span> '.$winner->user->country->name.' <span class="delimiter"> | </span>' : '' ?>
-                <a href="<?= $winner->user->getProfileUrl() ?>" target="_blank"><?= \yii\helpers\StringHelper::truncate($winner->user->getProfileUrl(), 35) ?></a>
+            </div>
+            <div class="member-detail" style="float: left;">
+                <?= '<span class="delimiter"> </span>'  ?>
+                <a href="<?= $winner->user->getProfileUrl() ?>" target="_blank"><i class="glyphicon glyphicon-link"></i>Ссылка</a>
             </div>
             <?php } ?>
         </div>
         <div class="options">
-            <a href="#" class="winner-btn <?= $winner ? '' : 'green' ?>" data-id="<?= $prize->id ?>"><i class="fa fa-refresh" aria-hidden="true"></i> <?= $winner ? 'Переизбрать' : 'Выбрать' ?></a>
+            <a href="#" class="winner-btn <?= $winner ? '' : '' ?>" data-id="<?= $prize->id ?>"><?= $winner ? '<div class="winner-btn-1"><i class="glyphicon glyphicon-repeat"></i> Перевыбрать</div>' : '<div class="winner-btn-2">Выбрать победителя</div>' ?></a>
         </div>
         <div class="clearfix"></div>
     </div>
     <?php } ?>
 </div>
 
-<div style="text-align: center; padding: 10px 0 0;">
-    <?php
-    Modal::begin([
-        'header' => '',
-        'toggleButton' => [
-            'tag' => 'a',
-            'class' => 'btn btn-lg btn-success',
-            'label' => 'Завершить конкурс',
-        ],
-    ]);
-    ?>
+<div style="text-align: center; padding: 40px 0 0;">
     <?php $form = ActiveForm::begin(['id' => 'form-close', 'action' => '/competition/close?id=' . $model->id]); ?>
-    <div id="video-frame"></div>
-
-    <?= $form->field($model, 'video_url')->textInput(["value" => "", "placeholder" => "Ссылка на видео с youtube"])->label("Ваше видео розыгрыша конкурса (необязательно)") ?>
-
     <div class="form-group" style="text-align: center;">
         <?= Html::submitButton('Завершить конкурс', ['class' => 'btn btn-success btn-lg', 'name' => 'create-button']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
-    <?php
-    Modal::end();
-    ?>
+</div>
 </div>

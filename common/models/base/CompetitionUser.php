@@ -43,7 +43,7 @@ abstract class CompetitionUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['competition_id', 'name', 'url', 'country_id'], 'required'],
+            [['competition_id', 'name', 'url'], 'required'],
             [['competition_id', 'country_id'], 'integer'],
             [['date'], 'safe'],
             [['name', 'url'], 'string', 'max' => 255],
