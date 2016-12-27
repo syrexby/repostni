@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Размещение рекламы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<h1><?= $this->title?></h1>
 <div class="row">
     <div class="col-md-7">
 

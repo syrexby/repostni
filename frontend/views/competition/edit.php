@@ -1,4 +1,4 @@
-<h1>edit</h1>
+
 <?php
 
 /* @var $this yii\web\View */
@@ -23,7 +23,7 @@ $videoInfo = '<div class="video-info">
 </div><div class="video-info-bg"></div><div id="video-frame"></div>';
 
 ?>
-
+<h1><?= $this->title?></h1>
 <?php $form = ActiveForm::begin(['id' => 'form-create', 'options' => ['enctype' => 'multipart/form-data']]); ?>
 
 

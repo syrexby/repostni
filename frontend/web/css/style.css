@@ -1015,20 +1015,12 @@ a.btn-remove {
     padding: 10px 0;
 }
 .concurs-layouts{
-    position: absolute;
-    height:50px;
-    width: 580px;
-    background: white;
-    z-index: 9999;
-    top:418px;
-    right:15px;
+
 }
 #block-6{
     padding: 10px;
     width: 100%;
-    background-color: white!important;
     height: 50px;
-    position: relative;
 }
 #block-6 .block-btn{
     background: #33b0d9;
@@ -1037,8 +1029,8 @@ a.btn-remove {
     height: 40px;
 }
 #block-6 .center a{
-    padding-top: 10px;
     float: left;
+    padding: 10px 20px 0 20px;
 }
 #block-6 .block-content{
     float: left;
@@ -1055,10 +1047,7 @@ a.btn-remove {
     color:black;
 }
 .concurs-winner{
-    position: absolute;
-    z-index: 9999;
-    top:437px;
-    right: 15px;
+
 }
 .concurs-winner a{
     font-size: 14px;
@@ -1106,7 +1095,7 @@ a.btn-remove {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    z-index: 99999;
+    z-index: 999;
     top:97px;
     right:60px;
 }
@@ -1212,4 +1201,7 @@ a.btn-remove {
     width: 100%;
     background: #32b0d9;
     color: #fff;
+}
+#block-1{
+    position: relative;
 }

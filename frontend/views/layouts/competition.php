@@ -42,7 +42,7 @@ $title = $this->title . " | repostni";
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9" style="position: relative">
+        <div class="col-md-9" style="position: relative;  word-wrap: break-word;">
             <?= \common\components\CurrentUser::showFlash() ?>
             <?= $content ?>
         </div>

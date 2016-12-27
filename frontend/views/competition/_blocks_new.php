@@ -19,7 +19,7 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
 ?>
 
 
-<h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?>| <?= $oh2.''.$oh3 ?><? endif;?></h1>
+<h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
 <div class="concurs-date">
     <?=$d1 = date('d.m.y')?> -
 
@@ -55,31 +55,45 @@ if ($model->isMy() && $model->open) {
 }?>
 <div class="clearfix"></div>
 
-<div class="competition-blocks" style="padding-top: 30px;">
-    <?php if ($model->isMy()) {?>
+<!--<div class="competition-blocks" style="padding-top: 30px;">
+    <?php /*if ($model->isMy()) {*/?>
     <div class="concurs-layouts">
         <div class="block" id="block-6">
 
-            <div class="center"><a href="/competition/users?id=<?= $model->id ?>" class="block-btn">Список участников</a></div>
+            <div class="center"><a href="/competition/users?id=<?/*= $model->id */?>" class="block-btn">Список участников</a></div>
             <div class="block-content">
-                <p><?= $model->getMembersCount() ?></p>
+                <p><?/*= $model->getMembersCount() */?></p>
                 <div class="concurs-count-romb"></div>
             </div>
         </div>
     </div>
 
     <div class="concurs-winner">
-        <a href="/competition/winner?id=<?= $model->id ?>">Выбрать победителя и завершить конкурс</a>
-        <!--    <a href="/competition/close?id=<?/*= $model->id */?>" class="btn btn-lg btn-success">2. Завершить конкурс</a>-->
+        <a href="/competition/winner?id=<?/*= $model->id */?>">Выбрать победителя и завершить конкурс</a>
     </div>
-    <?php } ?>
-</div>
+    <?php /*} */?>
+</div>-->
 
 
 
 <?php if ($model->photoFile) : ?>
     <div class="block" id="block-1" <?= $styleBlock1 ?>>
+        <?php if ($model->isMy()) {?>
 
+            <div class="concurs-layouts" style="width:100%; overflow: hidden;  position: absolute; bottom: 0px;">
+                <div class="concurs-winner" style="width: 50%;float: right; height:50px; padding-top: 20px; padding-left: 15px; background-color: white;">
+                    <a href="/competition/winner?id=<?= $model->id ?>">Выбрать победителя и завершить конкурс</a>
+                </div>
+                <div class="block" id="block-6" style="width: 40%;float:right;overflow: hidden; background-color: white;">
+                    <div class="center"><a href="/competition/users?id=<?= $model->id ?>" class="block-btn">Список участников</a></div>
+                    <div class="block-content">
+                        <p><?= $model->getMembersCount() ?></p>
+<!--                        <div class="concurs-count-romb"></div>-->
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>
     </div>
 <?php else:?>
     <div class="block" id="block-1" <?= $styleBlock1 ?>>
@@ -110,7 +124,7 @@ if ($model->isMy() && $model->open) {
                         <p>
                                 <span
                                     class="concurs-priz-price"><?= \yii\helpers\StringHelper::truncate($prize->name, 20) ?></span>
-                            <span class="concurs-priz-val"><sup>руб.</sup></span>
+                            <span class="concurs-priz-val"></span>
                             <br/>
                             <span class="concurs-priz-plac"><?= $num ?> место</span>
                         </p>
@@ -181,7 +195,7 @@ else {
                             <p>
                                 <span
                                     class="concurs-priz-price"><?= \yii\helpers\StringHelper::truncate($prize->name, 20) ?></span>
-                                <span class="concurs-priz-val"><sup>руб.</sup></span>
+                                <span class="concurs-priz-val"></span>
                                 <br/>
                                 <span class="concurs-priz-plac"><?= $num ?> место</span>
                             </p>

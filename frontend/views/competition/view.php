@@ -1,5 +1,4 @@
 <?php
-
 /** @var \common\models\Competition $model */
 /* @var $this yii\web\View */
 
