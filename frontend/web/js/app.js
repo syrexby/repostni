@@ -64,21 +64,29 @@ $(document).ready(function () {
         var model = $("div#image-upload").data("model");
         var modelU = model.charAt(0).toUpperCase() + model.substr(1);;
         myDropzone = new Dropzone("div#image-upload", {
-            url: "/file/upload?"+(controller == 'advert' ? "width=220&height=127" : ""),
+            url: "/file/upload?"+(controller == 'advert' ? "width=340&height=200" : ""),
             uploadMultiple: false,
             paramName: "File[uploadFile]",
             maxFiles: 1,
-            maxFileSize: 5,
+            maxFilesize: 5,
             acceptedFiles: "image/*",
-            dictDefaultMessage: "<strong>Перетяните фото в формате .png или .jpg, или нажмите для выбора фото вручную</strong>Максимальный размер фото 5Мб<br/>"
+            dictDefaultMessage: "<strong>Перетяните фото в формате .png или .jpg, или нажмите для выбора фото вручную</strong>Максимальный размер фото 5Мб<br/>",
+            dictFileTooBig: "Файл слишком большого размера ({{filesize}}МБ). Максимальный размер: {{maxFilesize}}МБ.",
+            // init: function() {
+            //     this.on("error", function(file, progress) {
+            //         console.log("File progress", this.options.maxFilesize);
+            //         // if(this.maxFileSize);
+            //     });
+            // }
         });
-
         myDropzone.on("success", function (file, data) {
             var result = JSON.parse(data);
+            // console.log(result);
+            // console.log(data);
             $("#image-upload-error").html("");
             if (result.code == 1) {
                 myDropzone.removeAllFiles();
-                $("#image-upload-error").html("Изображение слишком маленькое. Пожалуйста, выберите другое.");
+                $("#image-upload-error").html("Изображение не подходит. Пожалуйста, выберите другое.");
                 return;
             }
             $("#edit-image-preview").remove();
@@ -86,12 +94,12 @@ $(document).ready(function () {
             $("#image-crop").html('<img src="' + result.result.url + '" id="image-canvas" />');
             $("#image-upload").hide();
             $("#image-crop-layer").show();
-            var x2 = controller == 'competition' ? 636 : 220, y2 = controller == 'competition' ? 318 : 127;
-            var aspectRatio = controller == 'competition' ? '1:0.5' : '0,577272727';
+            var x2 = controller == 'competition' ? 636 : 220, y2 = controller == 'competition' ? 1000 : 127;
+            var aspectRatio = controller == 'competition' ? '1:0.5' : '1:0.577272727';
             if (model == "post") {
-                aspectRatio = controller == 'competition' ? '1:0.5' : '0,577272727';
+                aspectRatio = controller == 'competition' ? '1:0.5' : '1:0.577272727';
                 x2 = controller == 'competition' ? 636 : 220;
-                y2 = controller == 'competition' ? 318 : 127;
+                y2 = controller == 'competition' ? 1000 : 127;
             }
             var html = '<input type="hidden" name="'+modelU+'[x1]" id="'+model+'_x1" value="0" />' +
                 '<input type="hidden" name="'+modelU+'[x2]" id="'+model+'_x2" value="'+x2+'" />' +
@@ -106,13 +114,19 @@ $(document).ready(function () {
             ias.setOptions({
                 x1: 0,
                 y1: 0,
-                x2: x2,
-                y2: y2,
+                x2: controller == 'competition' ? 200 : 172,
+                y2: 100,
                 aspectRatio: aspectRatio,
                 persistent: true,
                 handles: true,
                 movable: true,
                 show: true,
+                onInit: function (img, selection) {
+                    $('#'+model+'_x1').val(selection.x1);
+                    $('#'+model+'_y1').val(selection.y1);
+                    $('#'+model+'_x2').val(selection.x2);
+                    $('#'+model+'_y2').val(selection.y2);
+                },
                 onSelectEnd: function (img, selection) {
                     $('#'+model+'_x1').val(selection.x1);
                     $('#'+model+'_y1').val(selection.y1);
@@ -134,7 +148,6 @@ $(document).ready(function () {
         var controller =  window.location.pathname.split('/')[1];
         var x1 = $('#'+model+'_x1').val();
         var x2 = $('#'+model+'_x2').val();
-
         var values = {photo_file_id: $("#"+model+"-photo_file_id").val(),
             x1: $('#'+model+'_x1').val(),
             x2: $('#'+model+'_x2').val(),
@@ -150,7 +163,9 @@ $(document).ready(function () {
         } else {
             obj.Competition = values;
         }
+        console.log(obj);
         $.post("/"+model+"/save-image", obj, function (data) {
+            console.log(data);
             if (data.code == 0) {
                 ias.setOptions({show: false});
                 ias.remove();

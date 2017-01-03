@@ -50,11 +50,12 @@ class AdvertController extends Controller
                         $file = File::find()->where(["id" => $model->photo_file_id])->one();
 
                         $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                        $sized = File::getPath($file->path, "220_127_th", true) . "." . $file->extension;
+                        $sized = File::getPath($file->path, "337_500", true) . "." . $file->extension;
+                        file_get_contents($file->getUrl(337, 500, false));
                         $imgine = new \yii\imagine\Image();
                         $img = $imgine->getImagine()->open($sized);
                         $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
-                        $img->save($origin, ['quality' => 90]);
+                        $img->save($origin, ['quality' => 100]);
                         $file->clear();
                     }
 //                    CurrentUser::setFlashSuccess("Вы успешно разместили объявление");
@@ -75,15 +76,14 @@ class AdvertController extends Controller
                 /** @var File $file */
                 $file = File::find()->where(["id" => $model->photo_file_id])->one();
                 $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                $sized = File::getPath($file->path, "220_127_th", true) . "." . $file->extension;                
+                $sized = File::getPath($file->path, "337_500", true) . "." . $file->extension;
+                file_get_contents($file->getUrl(337, 500, false));
                 $imgine = new \yii\imagine\Image();
                 $img = $imgine->getImagine()->open($sized);
                 $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
-
-                $img->save($origin, ['quality' => 90]);
+                $img->save($origin, ['quality' => 100]);
                 $file->clear();
-
-                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(220, 127, true)]]);
+                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(220, 127, false) ]]);
             }
         }
         return Json::encode(["code" => 1]);
@@ -132,7 +132,7 @@ class AdvertController extends Controller
     public function actionSuccess()
     {
         $this->layout = "blank";
-//        CurrentUser::setFlashSuccess("Вы успешно разместили объявление");
+        CurrentUser::setFlashSuccess("Вы успешно разместили объявление");
         return $this->render("success");
     }
 

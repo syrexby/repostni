@@ -7,7 +7,6 @@ if (!isset($button)) {
 }
 ?>
 
-
 <div class="row addAdvert">
     <a href="/advert/create">Реклама по<br>доступной цене</a>
 </div>

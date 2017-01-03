@@ -6,6 +6,9 @@ body {
     .container {
         max-width: 940px;
     }
+    .container h1{
+        margin-top: 0;
+    }
 }
 
 @font-face {
@@ -598,6 +601,10 @@ a.create-best-project:hover {
 .main-text .form-group textarea {
     padding: 25px 30px;
 }
+.form-group.field-competition-photo_file_id{
+    margin: 0;
+    height: 0;
+}
 
 .footer-copy {
     /*padding-left: 0;*/
@@ -671,7 +678,10 @@ a.create-best-project:hover {
     text-align: center;
 
 }
-
+#image-crop img{
+    max-width: 100%;
+    max-height: 1000px;
+}
 #image-crop-layer, #image-after-crop {
     display: none;
 }
@@ -924,8 +934,9 @@ a.btn-remove {
     margin: 13px 0 0 15px
 }
 .concurs-edit{
+    margin: 9px 0 0 0;
+    display: inline-block;
     float: right;
-    margin: 22px 0 0 15px;
 }
 
 .concurs-priz-header, .concurs-org-header, .concurs-sponsor-header, .concurs-usl-header, .concurs-video-header{
@@ -997,9 +1008,15 @@ a.btn-remove {
     height: 300px;
     position: relative;
 }
-.concurs-edit a:hover{
-    background: #74bd00!important;
+.concurs-edit a{
+    background: #e5e5e5;
     text-decoration: none;
+    color:black;
+    padding:12px 20px;
+    float:right
+}
+.concurs-edit a:hover{
+    background: #cfcfcf;
 }
 .adver-right:hover{
     background: #74bd00!important;
@@ -1015,30 +1032,27 @@ a.btn-remove {
     padding: 10px 0;
 }
 .concurs-layouts{
-    position: absolute;
-    height:50px;
-    width: 580px;
-    background: white;
-    z-index: 9999;
-    top:418px;
-    right:15px;
+
 }
 #block-6{
     padding: 10px;
     width: 100%;
-    background-color: white!important;
     height: 50px;
-    position: relative;
 }
 #block-6 .block-btn{
     background: #33b0d9;
     color:white;
     border:none;
     height: 40px;
+    cursor: pointer;
+    text-decoration: none;
+}
+#block-6 .block-btn:hover{
+    background: #3191ba;
 }
 #block-6 .center a{
-    padding-top: 10px;
     float: left;
+    padding: 10px 20px 0 20px;
 }
 #block-6 .block-content{
     float: left;
@@ -1055,10 +1069,7 @@ a.btn-remove {
     color:black;
 }
 .concurs-winner{
-    position: absolute;
-    z-index: 9999;
-    top:437px;
-    right: 15px;
+
 }
 .concurs-winner a{
     font-size: 14px;
@@ -1085,6 +1096,7 @@ a.btn-remove {
     position: absolute;
     height: 8px;
     width: 8px;
+    background: #fff;
     border-bottom: 1px solid #eeeeee;
     border-left: 1px solid #eeeeee;
     -o-transform: rotate(45deg);
@@ -1093,7 +1105,7 @@ a.btn-remove {
     transform: rotate(45deg);
     z-index: 99999;
     top:26px;
-    left:197px;
+    left:302px;
 }
 .concurs-countu-romb{
     position: absolute;
@@ -1106,13 +1118,13 @@ a.btn-remove {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    z-index: 99999;
+    z-index: 999;
     top:97px;
     right:60px;
 }
 .concurs-winner a:hover{
     text-decoration: none;
-    background: #74bd00;
+    background: #00ab31;
     color:white;
 }
 .concurs-uchastie{
@@ -1212,4 +1224,7 @@ a.btn-remove {
     width: 100%;
     background: #32b0d9;
     color: #fff;
+}
+#block-1{
+    position: relative;
 }

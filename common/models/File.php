@@ -18,7 +18,7 @@ class File extends BaseFile
 
     public static $allowExtension = ["jpg", "jpeg", "gif", "png"];
     public static $allowSize = ["50_50", "66_66", "100_100", "178_103", "200_200", "220_127", "235_235", "280_280", "350_350",
-        "400_400", "500_500", "600_600", "636_318", "700_700", "800_800", "1000_1000"];
+        "400_400", "500_500", "600_600", "636_318", "636_1000", "700_700", "800_800", "1000_1000"];
 
     public static $baseUrl = "image";
     public static $originDir = "origin";
@@ -43,6 +43,7 @@ class File extends BaseFile
         if ($this->uploadFile) {
             $imagine = new Imagine();
             $size = $imagine->open($this->uploadFile->tempName)->getSize();
+//            return $size;
             if ($size->getWidth() < 200 || $size->getHeight() < 110) {
                 $this->addError("uploadFile", "Изображение слишком маленькое.");
                 return false;

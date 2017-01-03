@@ -1,5 +1,5 @@
+<h1>Мои конкурсы</h1>
 <?php
-
 /** @var \common\models\Competition $model */
 /* @var $this yii\web\View */
 

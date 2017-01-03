@@ -22,9 +22,9 @@ class ImageController extends Controller
         $h = $sa[1];
         $th = (isset($sa[2]) && $sa[2] == "th") ? true : false;
         $size = $w . "_" . $h;
-        if (!in_array($size, File::$allowSize)) {
-            throw new HttpException(404);
-        }
+//        if (!in_array($size, File::$allowSize)) {
+//            throw new HttpException(404);
+//        }
         if ($th) {
             $size .= "_th";
         }

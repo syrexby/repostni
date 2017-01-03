@@ -3,7 +3,7 @@
 ?>
 
 <tr id="adm-a-<?= $model->id ?>">
-    <td><?= $model->photoFile ? '<img src="'.$model->photoFile->getUrl(178, 103, true).'" />' : '' ?></td>
+    <td><?= $model->photoFile ? '<img src="'.$model->photoFile->getUrl(178, 103, false).'" />' : '' ?></td>
     <td><?= $model->date ?></td>
     <td><?= $model->name ?></td>
     <td><?= $model->description ?></td>

@@ -1,3 +1,4 @@
+
 <?php
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -11,7 +12,7 @@ $this->title = 'Заполните форму конкурса';
 $this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
 $this->params['breadcrumbs'][] = $this->title;
 
-//$this->registerJsFile("/plugins/dropzone.js");
+//$this->registerJsFile("/plugins/dropzone.js"); 
 
 $videoInfo = '<div class="video-info">
 <p>При розыгрыше конкурса рекомендуем снимать видео Вашего экрана, далее загрузить на YouTube и указать ниже ссылку на видео, это увеличивает доверие участников к розыгрышку.</p>
@@ -19,7 +20,7 @@ $videoInfo = '<div class="video-info">
 </div><div class="video-info-bg"></div><div id="video-frame"></div>';
 
 ?>
-
+<h1><?= $this->title;?></h1>
 <?php $form = ActiveForm::begin(['id' => 'form-create', 'options' => ['enctype' => 'multipart/form-data']]); ?>
 
 

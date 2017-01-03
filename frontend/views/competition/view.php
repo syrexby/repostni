@@ -1,5 +1,4 @@
 <?php
-
 /** @var \common\models\Competition $model */
 /* @var $this yii\web\View */
 
@@ -22,6 +21,7 @@ $model->description = preg_replace('#(?<!\])\bhttps://[^\s\[<]+#i',
     "<a href=\"$0\" target=_blank>$0</a>",
     $model->description);
 //var_dump();
+//phpinfo();
 ?>
 
 <?php if ($model->open) { ?>

@@ -161,18 +161,18 @@ class CompetitionController extends Controller
         $model->created_date = Date::now();
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->id;
-            $model->date = $model->date ? date("Y-m-d H:i:s", strtotime($model->date)) : null;
+            $model->date = $model->date ? date("Y-m-d", strtotime($model->date)) : null;
             if ($model->validate() && $model->save()) {
                 if ($model->photo_file_id && !is_null($model->x1) && !is_null($model->x2) && !is_null($model->y1) && !is_null($model->y2)) {
                     /** @var File $file */
                     $file = File::find()->where(["id" => $model->photo_file_id])->one();
 
                     $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                    $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
+                    $sized = File::getPath($file->path, "636_1000", true) . "." . $file->extension;
                     $imgine = new \yii\imagine\Image();
                     $img = $imgine->getImagine()->open($sized);
                     $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
-                    $img->save($origin, ['quality' => 90]);
+                    $img->save($origin, ['quality' => 100]);
                     $file->clear();
                 }
 
@@ -241,11 +241,11 @@ class CompetitionController extends Controller
                     $file = File::find()->where(["id" => $model->photo_file_id])->one();
 
                     $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                    $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
+                    $sized = File::getPath($file->path, "636_1000", true) . "." . $file->extension;
                     $imgine = new \yii\imagine\Image();
                     $img = $imgine->getImagine()->open($sized);
                     $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
-                    $img->save($origin, ['quality' => 90]);
+                    $img->save($origin, ['quality' => 100]);
                     $file->clear();
 
                     if ($oldPhoto && $oldPhoto != $model->photo_file_id) {
@@ -327,14 +327,14 @@ class CompetitionController extends Controller
                     throw new HttpException(403);
                 }
                 $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                $sized = File::getPath($file->path, "636_318_th", true) . "." . $file->extension;
+                $sized = File::getPath($file->path, "631_1000", true) . "." . $file->extension;
+                file_get_contents($file->getUrl(631, 1000, false));
                 $imgine = new \yii\imagine\Image();
                 $img = $imgine->getImagine()->open($sized);
                 $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
-                $img->save($origin, ['quality' => 90]);
+                $img->save($origin, ['quality' => 100]);
                 $file->clear();
-
-                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(636, 318, true)]]);
+                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(631, 1000, false) ]]);
             }
         }
         return Json::encode(["code" => 1]);
@@ -405,7 +405,7 @@ class CompetitionController extends Controller
             $model->open = false;
             $model->save();
             CurrentUser::setFlashSuccess("Вы завершили конкурс, спасибо, что воспользовались нашим сервисом. Надеемся скоро снова увидеть у нас Ваши новые конкурсы.");
-            Yii::app()->controller->refresh();
+            return $this->redirect("/id" . $model->id);
         } else{
             if (isset($_POST["Competition"])) {
                 if (isset($_POST["Competition"]["video_url"]) && trim($_POST["Competition"]["video_url"])) {
