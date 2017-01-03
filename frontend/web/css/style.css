@@ -1019,7 +1019,7 @@ a.btn-remove {
     background: #cfcfcf;
 }
 .adver-right:hover{
-    background: #74bd00!important;
+    background: #3191ba!important;
 }
 .adver-a:hover{
     text-decoration: none;
@@ -1090,7 +1090,7 @@ a.btn-remove {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     top:27px;
-    left:133px;
+    left:164px;
 }
 .concurs-count-romb{
     position: absolute;
@@ -1229,9 +1229,25 @@ a.btn-remove {
 
 #block-0{
     overflow: hidden;
-    margin-bottom: 15px;
 }
 
 #block-1{
     position: relative;
+}
+.qweqwe .owl-item{
+    float: none!important;
+    width: 100%!important;
+}
+.qweqwe .owl-wrapper{
+    width: 100%!important;
+}
+.qweqwe .owl-item img{
+    width: 100%!important;
+}
+.qweqwe .owl-item .item{
+    margin: 0!important;
+    margin-top: 20px!important;
+}
+.qweqwe h4{
+    margin-top: 35px!important;
 }

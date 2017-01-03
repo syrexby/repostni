@@ -20,20 +20,22 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
 <h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
 <div class="block" id="block-0">
     <div class="concurs-date">
-        <?=$d1 = date('d.m.y')?> -
+        <?=$d1 = date('d.m.Y')?> -
 
         <?php
         if ($model->date) {
             $time = strtotime($model->date);
         ?>
-            <?=$d2 = date("d", $time) . "." . date("m", $time) . "." . date("y", $time) ?>
+            <?=$d2 = date("d.m.Y", $time) ?>
+            <?='<div style="display: none">'.($days = date_diff(new DateTime($d2), new DateTime())->d+1).'</div>';?>
         <?php } ?>
     </div>
     <div class="concurs-date-bg">
         <div class="concurs-date-romb"></div>
-        <?php if ( $d2-$d1 > 0) {?>
+        
+        <?php if ($days >0) {?>
             <div class="concurs-date-count">
-            <?= $d2-$d1.' дн.' ?>
+                <?= $days.' дн.';?>
             </div>
         <?php } else {?>
             <div class="concurs-date-count-minus">
@@ -140,7 +142,7 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
         </div>
     </div>
     <div class="block" id="block-8" style="margin-top: 25px; float: left; width: 33%;">
-        <div class="block-content-header concurs-sponsor-header">СПОНСОРЫ</div>
+        <div class="block-content-header concurs-sponsor-header">СПОНСОР</div>
 
         <?php foreach ($model->competitionSponsors as $sponsor) : ?>
             <div

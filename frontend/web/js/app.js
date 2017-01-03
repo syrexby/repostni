@@ -378,6 +378,8 @@ $(document).ready(function () {
             }, 5000);
         }, "json");
     };
+    
+    
 
     if ($("#owl-best-projects").length) {
         setTimeout(function () {

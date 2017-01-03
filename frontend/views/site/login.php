@@ -11,10 +11,10 @@ $this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1><?= $this->title?></h1>
-<h2>Выберите удобную социальную сеть</h2>
+<h2 class="text-center">Выберите удобную социальную сеть</h2>
 <p style="text-align: center;"><a href="/site/auth?authclient=vkontakte"><img src="/img/vk.png" /></a> <a href="/site/auth?authclient=facebook"><img src="/img/fb.png" /></a> <a href="/site/auth?authclient=twitter"><img src="/img/tw.png" /></a></p>
 
-<h2>или заполните форму</h2>
+<h2 class="text-center">или заполните форму</h2>
 
 
 

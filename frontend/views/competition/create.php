@@ -46,7 +46,7 @@ $videoInfo = '<div class="video-info">
 </div>
 
 <?= $form->field($model, 'video_url', ['template' => '<div class="form-group">{label}' . $videoInfo . '{input}</div>'])->textInput(["placeholder" => "Ссылка на видео с youtube (не обязательно)"]) ?>
-<?= $form->field($model, 'description')->textarea(["placeholder" => "Условие конкурса"])->label("Условие конкурса") ?>
+<?= $form->field($model, 'description')->textarea(["rows" => "6","placeholder" => "Условие конкурса"])->label("Условие конкурса") ?>
 <div class="organizer-block">
     <?= $form->field($model, 'organizer')->textInput([])->label("Организатор конкурса (при желании Вы можете изменить имя или организацию на определенный конкурс)") ?>
     <?= $form->field($model, 'organizer_url', ['template' => '<div class="form-group">{input}</div>'])->textInput(["placeholder" => "Ссылка на сайт, группу или страницу соц. сети (не обязательно)"])->label("") ?>
