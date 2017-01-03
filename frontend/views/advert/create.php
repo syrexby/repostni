@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'url')->textInput()->label("Ссылка на Ваш конкурс (сайт, канал youtube, группа в ВК)") ?>
 
         <div class="form-group">
-            <p style="font-size: 18px; font-weight: bold;">Сумма к оплате 1 грн <img style="margin: -5px 0 0 50px;" src="/img/paysystem.png" /></p>
+            <p style="font-size: 18px; font-weight: bold;">Сумма к оплате 1 грн <br/><img src="/img/paysystem.png" style="padding-top:10px;"/></p>
             <p class="text-muted">При оплате другой валютой сумма будет переконвертирована по курсу банка</p>
         </div>
 

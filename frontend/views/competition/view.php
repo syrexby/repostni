@@ -24,7 +24,6 @@ $model->description = preg_replace('#(?<!\])\bhttps://[^\s\[<]+#i',
 ?>
 
 <?php if ($model->open) { ?>
-
     <?= $this->render("_blocks_new", ["model" => $model]) ?>
 <?php } else { ?>
     <?= $this->render("_blocks_winner", ["model" => $model]) ?>
@@ -34,7 +33,7 @@ $model->description = preg_replace('#(?<!\])\bhttps://[^\s\[<]+#i',
     <?php
     $time = strtotime($model->date);
     if (\common\helpers\Date::now() < $model->date) { ?>
-        
+
         <div class="row uchastie" >
             <?php
 
@@ -54,7 +53,7 @@ $model->description = preg_replace('#(?<!\])\bhttps://[^\s\[<]+#i',
                         "clientOptions" => ["show" => $formModel->hasErrors()],
                     ]);
                     ?>
-                    <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => [/*'enctype' => 'multipart/form-data'*/]]); ?>
+                    <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); ?>
                     <?= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") ?>
                     <?= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") ?>
                     <div class="form-group" style="text-align: center;">

@@ -1,4 +1,5 @@
 <?php
+
 use common\models\Competition;
 use yii\bootstrap\Html;
 use yii\bootstrap\Modal;
@@ -13,68 +14,48 @@ $h3 = isset($row[1]) ? trim($row[1]) : "&nbsp;";
 $row = explode(" ", trim($model->organizer));
 $oh2 = \yii\helpers\StringHelper::truncate(trim($row[0]), 17);
 $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) : "&nbsp;";
-
-
-
 ?>
 
-
 <h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
-<div class="concurs-date">
-    <?=$d1 = date('d.m.y')?> -
+<div class="block" id="block-0">
+    <div class="concurs-date">
+        <?=$d1 = date('d.m.y')?> -
 
-    <?php
-    if ($model->date) {
-        $time = strtotime($model->date);
-    ?>
-        <?=$d2 = date("d", $time) . "." . date("m", $time) . "." . date("y", $time) ?>
-    <?php } ?>
-</div>
-
-<div class="concurs-date-bg">
-    <div class="concurs-date-romb"></div>
-    <?php if ( $d2-$d1 > 0) {?>
-        <div class="concurs-date-count">
-        <?= $d2-$d1.' дн.' ?>
-        </div>
-    <?php } else {?>
-        <div class="concurs-date-count-minus">
-        <?= 'Конкурс уже завершен!' ?>
-        </div>
-    <?php } ?>
-</div>
-<div class="concurs-edit">
-<?php
-if ($model->isMy() && $model->open) {
-    echo '<a href="/competition/edit?id='.$model->id.'" style="background:#e5e5e5; color:black; padding:12px 20px;">Редактировать конкурс</a>';
-}?>
-</div>
-<?php if (!$model->isMy() && $model->open) {
-    echo '<div class="concurs-countu-romb"></div>';
-    echo '<div class="concurs-count-user">'.$model->getMembersCount().'</div>';
-}?>
-<div class="clearfix"></div>
-
-<!--<div class="competition-blocks" style="padding-top: 30px;">
-    <?php /*if ($model->isMy()) {*/?>
-    <div class="concurs-layouts">
-        <div class="block" id="block-6">
-
-            <div class="center"><a href="/competition/users?id=<?/*= $model->id */?>" class="block-btn">Список участников</a></div>
-            <div class="block-content">
-                <p><?/*= $model->getMembersCount() */?></p>
-                <div class="concurs-count-romb"></div>
+        <?php
+        if ($model->date) {
+            $time = strtotime($model->date);
+        ?>
+            <?=$d2 = date("d", $time) . "." . date("m", $time) . "." . date("y", $time) ?>
+        <?php } ?>
+    </div>
+    <div class="concurs-date-bg">
+        <div class="concurs-date-romb"></div>
+        <?php if ( $d2-$d1 > 0) {?>
+            <div class="concurs-date-count">
+            <?= $d2-$d1.' дн.' ?>
             </div>
-        </div>
+        <?php } else {?>
+            <div class="concurs-date-count-minus">
+            <?= 'Конкурс уже завершен!' ?>
+            </div>
+        <?php } ?>
     </div>
-
-    <div class="concurs-winner">
-        <a href="/competition/winner?id=<?/*= $model->id */?>">Выбрать победителя и завершить конкурс</a>
+    <div class="concurs-edit">
+    <?php
+    if ($model->isMy() && $model->open) {
+        echo '<a href="/competition/edit?id='.$model->id.'" style="background:#e5e5e5; color:black; padding:12px 20px;">Редактировать конкурс</a>';
+    }?>
     </div>
-    <?php /*} */?>
-</div>-->
+    <?php if (!$model->isMy() && Yii::$app->user->isGuest) {
+        echo '<div class="concurs-countu-romb"></div>';
+        echo '<div class="concurs-count-user">'.$model->getMembersCount().'</div>';
+        /********************************************************************/
+        
+        /********************************************************************/
+    }?>
+</div>
 
-
+<div class="clearfix"></div>
 
 <?php if ($model->photoFile) : ?>
     <div class="block" id="block-1" <?= $styleBlock1 ?>>
