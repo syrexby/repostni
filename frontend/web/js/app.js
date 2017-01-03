@@ -292,7 +292,7 @@ $(document).ready(function () {
                 if (data.result.country) {
                     html += ' ';
                 }
-                html += '<div class="member-detail" style="float: left;"><a href="'+data.result.url+'" target="_blank"><i class="glyphicon glyphicon-link"></i> Ссылка</a></div>';
+                html += '<div class="member-detail" style="float: left;"><span class="delimiter"> </span><a href="'+data.result.url+'" target="_blank"><i class="glyphicon glyphicon-link"></i> Ссылка</a></div>';
                 html += '</div>';
                 $("#winner-block-" + id).html(html);
                 _this.removeClass("green");

@@ -578,6 +578,7 @@ a.create-best-project:hover {
 .members__competition-title{
     font-weight: 800;
     font-size: 27pt;
+    word-wrap: break-word;
 }
 
 .main-text form {
@@ -934,9 +935,8 @@ a.btn-remove {
     margin: 13px 0 0 15px
 }
 .concurs-edit{
-    margin: 9px 0 0 0;
-    display: inline-block;
     float: right;
+    margin: 22px 18px 0 15px;
 }
 
 .concurs-priz-header, .concurs-org-header, .concurs-sponsor-header, .concurs-usl-header, .concurs-video-header{
@@ -1165,6 +1165,7 @@ a.btn-remove {
     color:black;
     font-weight: bold;
     margin-bottom: 60px;
+    word-wrap: break-word;
 }
 .winner-p2{
     font-size: 24px;
@@ -1225,6 +1226,12 @@ a.btn-remove {
     background: #32b0d9;
     color: #fff;
 }
+
+#block-0{
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
 #block-1{
     position: relative;
 }
