@@ -36,7 +36,7 @@ use yii\bootstrap\Modal;
             </div>
         <?php } ?>
     </div>
-    <?php if(!$model->videoUrl()) {?>
+    <?php if(!$model->videoUrlFinal()) {?>
     <div class="video-final">
         <?php
         //var_dump($model->video_url); die();
@@ -52,7 +52,7 @@ use yii\bootstrap\Modal;
         <?php $form = ActiveForm::begin(['id' => 'form-close', 'action' => '/competition/close?id=' . $model->id]); ?>
         <div id="video-frame"></div>
 
-        <?= $form->field($model, 'video_url')->textInput(["value" => "", "placeholder" => "Ссылка на видео с youtube"])->label("Ваше видео розыгрыша конкурса (необязательно)") ?>
+        <?= $form->field($model, 'video_url_final')->textInput(["value" => "", "placeholder" => "Ссылка на видео с youtube"])->label("Ваше видео розыгрыша конкурса (необязательно)") ?>
 
         <div class="form-group" style="text-align: center;">
             <?= Html::submitButton('Завершить конкурс', ['class' => 'btn btn-success btn-lg', 'name' => 'create-button']) ?>
@@ -66,7 +66,7 @@ use yii\bootstrap\Modal;
     </div>
     <?php } else{ ?>
     <div class="video-final">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $model->videoUrl() ?>" frameborder="0" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $model->videoUrlFinal() ?>" frameborder="0" allowfullscreen></iframe>
     </div>
     <?php } ?>
     <div style="background-color: #fbfcaf;">

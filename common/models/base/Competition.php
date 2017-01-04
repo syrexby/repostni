@@ -14,6 +14,7 @@ use Yii;
  * @property string $name
  * @property string $description
  * @property string $video_url
+ * @property string $video_url_final
  * @property integer $photo_file_id
  * @property string $date
  * @property boolean $active
@@ -57,7 +58,7 @@ abstract class Competition extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['date', 'created_date'], 'safe'],
             [['active', 'open'], 'boolean'],
-            [['name', 'video_url', 'organizer', 'organizer_url'], 'string', 'max' => 255],
+            [['name', 'video_url', 'video_url_final', 'organizer', 'organizer_url'], 'string', 'max' => 255],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_id' => 'id']],
             [['photo_file_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::className(), 'targetAttribute' => ['photo_file_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']]
@@ -75,6 +76,7 @@ abstract class Competition extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'description' => Yii::t('app', 'Description'),
             'video_url' => Yii::t('app', 'Video Url'),
+            'video_url_final' => Yii::t('app', 'Video Url Final'),
             'photo_file_id' => Yii::t('app', 'Photo File ID'),
             'date' => Yii::t('app', 'Date'),
             'active' => Yii::t('app', 'Active'),

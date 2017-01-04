@@ -44,6 +44,10 @@ class Competition extends BaseCompetition
     {
         return self::checkVideoUrl($this->video_url);
     }
+    public function videoUrlFinal()
+    {
+        return self::checkVideoUrl($this->video_url_final);
+    }
 
     public function getRightDays($onlyCount = false)
     {

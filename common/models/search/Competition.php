@@ -19,7 +19,7 @@ class Competition extends CompetitionModel
     {
         return [
             [['id', 'user_id', 'photo_file_id', 'country_id'], 'integer'],
-            [['name', 'description', 'video_url', 'date', 'organizer', 'organizer_url', 'created_date'], 'safe'],
+            [['name', 'description', 'video_url', 'video_url_final','date', 'organizer', 'organizer_url', 'created_date'], 'safe'],
             [['active', 'open'], 'boolean'],
         ];
     }
@@ -69,6 +69,7 @@ class Competition extends CompetitionModel
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'video_url', $this->video_url])
+            ->andFilterWhere(['like', 'video_url_final', $this->video_url_final])
             ->andFilterWhere(['like', 'organizer', $this->organizer])
             ->andFilterWhere(['like', 'organizer_url', $this->organizer_url]);
 

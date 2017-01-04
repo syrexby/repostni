@@ -408,8 +408,8 @@ class CompetitionController extends Controller
             return $this->redirect("/id" . $model->id);
         } else{
             if (isset($_POST["Competition"])) {
-                if (isset($_POST["Competition"]["video_url"]) && trim($_POST["Competition"]["video_url"])) {
-                    $model->video_url = trim($_POST["Competition"]["video_url"]);
+                if (isset($_POST["Competition"]["video_url_final"]) && trim($_POST["Competition"]["video_url_final"])) {
+                    $model->video_url_final = trim($_POST["Competition"]["video_url_final"]);
                 }
                 $model->save();
                 CurrentUser::setFlashSuccess("Вы успешно добавили видеоотчет.");;
