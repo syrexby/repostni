@@ -7,7 +7,13 @@ if (!isset($button)) {
 }
 ?>
 <div class="container best-projects">
-    <div class="row"><a href="/advert/create" class="create-best-project">Разместить рекламу по доступной цене</a></div>
+    <div class="row">
+        <a href="/advert/create" class="create-best-project">
+         
+                Реклама по<br/> доступной цене
+      
+        </a>
+    </div>
     <div id="carousel-prev" class="carousel-btn"></div>
     <div id="carousel-next" class="carousel-btn"></div>
     <div id="owl-best-projects" class="row owl-carousel owl-theme<?= $border ? " border" : "" ?>">
@@ -24,9 +30,9 @@ if (!isset($button)) {
         <?php } ?>
 
     </div>
-    <?php if ($button) : ?>
+    <?php /*if ($button) : */?><!--
     <div class="row" style="text-align: center;">
         <a href="/competition/create" class="btn btn-success btn-lg">Создать конкурс бесплатно</a>
     </div>
-    <?php endif; ?>
+    --><?php /*endif; */?>
 </div>

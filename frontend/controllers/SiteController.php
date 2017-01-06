@@ -4,6 +4,12 @@ namespace frontend\controllers;
 use common\components\AuthHandler;
 use common\components\CurrentUser;
 use common\models\User;
+use common\models\Competition;
+use common\models\CompetitionCondition;
+use common\models\CompetitionPrize;
+use common\models\CompetitionSponsor;
+use common\models\CompetitionUser;
+use common\models\CompetitionWinner;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -71,7 +77,7 @@ class SiteController extends Controller
             ],
         ];
     }
-
+   
     /**
      * Displays homepage.
      *
@@ -82,7 +88,6 @@ class SiteController extends Controller
         $this->layout = "index";
         return $this->render('index');
     }
-
     /**
      * Logs in a user.
      *

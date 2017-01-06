@@ -1254,3 +1254,201 @@ a.btn-remove {
 .qweqwe h4{
     margin-top: 35px!important;
 }
+
+/*******************index********************/
+.box-1, .box-2, .box-3, .box-4, .box-5{
+    overflow: hidden;
+    width: auto;
+}
+.box-1{
+    background-color: white!important;
+}
+.box-2{
+    background-color: #f7f7f7!important;
+}
+.box-3{
+    background-color: #33b0d9!important;
+}
+.box-4{
+    background-color: white!important;
+}
+.box-5{
+    background-color: #f7f7f7!important;
+}
+.index-free-concurs{
+    padding: 30px 15px;
+}
+.index-free-concurs-text{
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.index-free-concurs-a{
+    margin-left: 30px;
+    margin-top: 15px;
+    font-size: 15px!important;
+    border: none!important;
+    padding: 12px 25px;
+}
+.best-projects .owl-item{
+    width: 216px!important;
+    margin-right: 20px;
+}
+#owl-best-projects{
+    margin: 0px;
+}
+.best-projects #owl-best-projects{
+    padding: 40px 0;
+}
+.best-projects #owl-best-projects .item{
+    margin: 0;
+}
+.best-projects #owl-best-projects .item h4{
+    font-size: 15px;
+    color: #000;
+    font-weight: bold;
+}
+.best-projects #owl-best-projects .item .post-img {
+    overflow: hidden!important;
+    width: 100%;
+}
+.best-projects #owl-best-projects .item .post-img img{
+    width: 100%;
+}
+a.create-best-project {
+    color: white;
+    font-size: 15px;
+    background: #32b0d9;
+    text-align: center;
+    padding: 10px 55px;
+    float: right;
+    border: none;
+    margin: 50px 0 10px 0;
+    line-height: 20px;
+}
+a.create-best-project:hover{
+    border: none;
+    background:#3191ba;
+}
+.box-5 h1{
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    line-height: 36px;
+}
+.box-5 p, .box-5 ul li{
+    color: #57657c;
+    font-size: 16px;
+    line-height: 25px;
+}
+.box-5 ul li{
+    margin-bottom: 7px;
+}
+.index-text-left, .index-text-right{
+    padding: 10px 30px 50px 30px;
+}
+.index-text-right h1{
+    margin-left: 20px;
+}
+.top-concurs{
+    text-align: center;
+    padding-bottom: 70px;
+}
+.top-concurs h1{
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    line-height: 36px;
+}
+.top-concurs .nav-tabs>li.active>a, .top-concurs .nav-tabs>li.active>a:focus, .top-concurs .nav-tabs>li.active>a:hover{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    background:none;
+    border:none;
+    text-transform: uppercase;
+    opacity: 1;
+    letter-spacing: 1px;
+}
+.top-concurs .tab-content, .top-concurs .nav-tabs{
+    border: none;
+}
+
+.top-concurs .nav-tabs>li a:hover{
+    border:none!important;
+}
+.top-concurs .nav>li>a:hover,.top-concurs .nav>li>a:focus{
+    background: none!important;
+
+}
+.top-concurs .nav>li>a,.top-concurs .nav>li>a{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    background:none;
+    border:none;
+    text-transform: uppercase;
+    opacity: 0.8;
+    letter-spacing: 1px;
+}
+.colll{
+    color:#33b0d9;
+}
+.index-all-concurs{
+    font-size: 16px;
+    color: #33b0d9;
+    background: #ffffff;
+    padding: 15px 60px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.index-all-concurs:hover,.index-all-concurs:active, .index-all-concurs:focus{
+    color: #33b0d9;
+    background: #f7f7f7;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-concurs{
+    float: left;
+    padding: 10px;
+}
+.top-concurs .tab-content{
+    margin-top: 40px;
+}
+.index-concurs .img{
+    width: 100%;
+    height: 125px;
+    background: #27a6d0;
+    position: relative;
+}
+.index-concurs .text{
+    text-align: left;
+    color: #ffffff;
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.ostal{
+    font-size: 11px;
+    background: #2395bb;
+    width: 100px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    color: #ffffff;
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+.count-user{
+    text-align: left;
+    margin-left: -5px;
+    color:white;
+    font-size: 11px;
+}
