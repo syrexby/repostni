@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -45,11 +44,9 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <section class="box-1">
 <?= $this->render("_head") ?>
 </section>
-
 <section class="box-2">
 <div class="container index-free-concurs">
     <div class="row">
@@ -63,7 +60,10 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
     </div>
 </div>
 </section>
+<?php
 
+    
+?>
 <section class="box-3">
     <div class="container">
         <div class="row">
@@ -74,92 +74,95 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                     <li class="col-md-2 colll">.</li>
                     <li role="presentation" class="active col-md-4"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Топ новых конкурсов</a></li>
                     <li role="presentation" class="col-md-4"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Сегодня заканчиваются</a></li>
-                    <li class="col-md-2 colll">.</li>    
+                    <li class="col-md-2 colll">.</li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
+                        <?php
+                        $datetime1 = new DateTime();
+                        ?>
+                        <?php foreach ($this->params['concurs'] as $concurs){?>
                         <div class="index-concurs col-md-3 col-xs-6">
-                            <a href="#">
+                            <a href="/id<?= $concurs['id'];?>">
                                 <div class="img">
                                     <div class="ostal">
-                                        Осталось 2дня
+                                        <?php 
+                                            $datetime2 = new DateTime($concurs['date']);
+                                            $interval = $datetime1->diff($datetime2);
+                      
+                                            if($concurs['date'] == date('Y-m-d')){
+                                                $countDay = 0;
+                                            }else{
+                                                $countDay = $interval->d+1;
+                                            }
+                                        
+                                        ?>
+                                            Осталось
+                                            <?= $countDay;?>
+                                            дней
                                     </div>
-                                    <img src="" alt="">
+                                    <?php if (!empty($concurs['photo'])) { ?>
+                                    <img src="<?= $concurs['photo'];?>" alt="" width="100%" height="103">
+                                    <?php } else { ?>
+                                    <img src="/img/blank.png" alt="" width="100%" height="103">
+                                    <?php } ?>
                                 </div>
-                                <div class="text">Название данного конкурса<br/>
-                                    в 2 строки здесь
-                                </div>
+                                <div class="text"><?= $concurs['name'];?></div>
                                 <div class="count-user">
                                     <img src="/img/count-user.png" alt="">
-                                    123123
+                                    <?= $concurs['count'];?>
                                 </div>
                             </a>
                         </div>
-                        <div class="index-concurs col-md-3 col-xs-6">
-                            <a href="#">
-                                <div class="img">
-                                    <div class="ostal">
-                                        Осталось 2дня
-                                    </div>
-                                    <img src="" alt="">
-                                </div>
-                                <div class="text">Название данного конкурса<br/>
-                                    в 2 строки здесь
-                                </div>
-                                <div class="count-user">
-                                    <img src="/img/count-user.png" alt="">
-                                    123123
-                                </div>
-                            </a>
-                        </div>
-                        <div class="index-concurs col-md-3 col-xs-6">
-                            <a href="#">
-                                <div class="img">
-                                    <div class="ostal">
-                                        Осталось 2дня
-                                    </div>
-                                    <img src="" alt="">
-                                </div>
-                                <div class="text">Название данного конкурса<br/>
-                                    в 2 строки здесь
-                                </div>
-                                <div class="count-user">
-                                    <img src="/img/count-user.png" alt="">
-                                    123123
-                                </div>
-                            </a>
-                        </div>
-                        <div class="index-concurs col-md-3 col-xs-6">
-                            <a href="#">
-                                <div class="img">
-                                    <div class="ostal">
-                                        Осталось 2дня
-                                    </div>
-                                    <img src="" alt="">
-                                </div>
-                                <div class="text">Название данного конкурса<br/>
-                                    в 2 строки здесь
-                                </div>
-                                <div class="count-user">
-                                    <img src="/img/count-user.png" alt="">
-                                    123123
-                                </div>
-                            </a>
-                        </div>
+                        <?php }?>
                     </div>
+                    
                     <div role="tabpanel" class="tab-pane" id="profile">
-                        22222222222222222222
+                        <?php
+                        if (!isset($this->params['concursToDay'])){?>
+                            <p style="color:white; font-weight: bold; font-size: 15px;">Сегодня нет розыгрышей!</p>
+                        <?php }else{?>
+                            <?php foreach ($this->params['concursToDay'] as $concurs){?>
+                                <div class="index-concurs col-md-3 col-xs-6">
+                                    <a href="/id<?= $concurs['id'];?>">
+                                        <div class="img">
+                                            <div class="ostal">
+                                                <?php
+                                                $datetime2 = new DateTime($concurs['date']);
+                                                $interval = $datetime1->diff($datetime2);
+                                                $countDay = $interval->d + 1;
+                                                ?>
+
+                                                Осталось
+                                                 0
+                                                дней
+
+                                            </div>
+                                            <?php if (!empty($concurs['photo'])) { ?>
+                                                <img src="<?= $concurs['photo'];?>" alt="" width="100%" height="103">
+                                            <?php } else { ?>
+                                                <img src="/img/blank.png" alt="" width="100%" height="103">
+                                            <?php } ?>
+                                        </div>
+                                        <div class="text"><?= $concurs['name'];?></div>
+                                        <div class="count-user">
+                                            <img src="/img/count-user.png" alt="">
+                                            <?= $concurs['count'];?>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php }?>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <br/>
                 <div style="margin-top: 50px;">
-                <a href="#" class="index-all-concurs">Все конкурсы</a>
+                    <a href="#" class="index-all-concurs">Все конкурсы</a>
                 </div>
             </div>
-            
         </div>
     </div>
 </section>

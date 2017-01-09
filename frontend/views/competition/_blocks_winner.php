@@ -55,7 +55,7 @@ use yii\bootstrap\Modal;
         <?= $form->field($model, 'video_url_final')->textInput(["value" => "", "placeholder" => "Ссылка на видео с youtube"])->label("Ваше видео розыгрыша конкурса (необязательно)") ?>
 
         <div class="form-group" style="text-align: center;">
-            <?= Html::submitButton('Завершить конкурс', ['class' => 'btn btn-success btn-lg', 'name' => 'create-button']) ?>
+            <?= Html::submitButton('Сохранить видео', ['class' => 'btn btn-success btn-lg', 'name' => 'create-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

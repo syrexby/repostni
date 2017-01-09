@@ -55,14 +55,17 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
+    <section class="section-bread">
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="row">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
     </div>
+    </section>    
 </div>
 
 <footer class="footer">

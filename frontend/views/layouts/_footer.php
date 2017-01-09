@@ -1,5 +1,12 @@
+<?php
+use yii\helpers\Url;
+?>
 <div id="footer">
-    <div class="container">
+    <?php if(Url::to('') == '/'):?>
+        <div class="container" style="border: none;">
+    <?php else: ?>
+        <div class="container">
+    <?php endif;?>
         <div class="row">
             <div class="col-md-8 footer-copy">&copy; 2016 REPOSTNI. Бесплатный и удобный сервис для организаторов по проведению любых конкурсов</div>
             <div class="col-md-4 footer-links">

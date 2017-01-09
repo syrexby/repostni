@@ -94,7 +94,11 @@ class File extends BaseFile
 
     private function makeUrl($directory)
     {
-        return Yii::$app->params["cs_url"] . "/" . self::$baseUrl . self::getPath($this->path, $directory) . "." . $this->extension;
+        $url = Yii::$app->params["cs_url"] . "/" . self::$baseUrl . self::getPath($this->path, $directory) . "." . $this->extension;
+        if (is_null($url)){
+            $url = "";
+        }
+        return $url;
     }
 
     /*public static function saveByUrl($url)
@@ -136,6 +140,8 @@ class File extends BaseFile
             $path .= "/";
         }
         $ret = $full ? Yii::getAlias("@cs_web") : "";
+
+        \Yii::info($ret);
         return $ret . "/" . $directory . $path . $file;
     }
 

@@ -10,6 +10,7 @@ use common\models\CompetitionPrize;
 use common\models\CompetitionSponsor;
 use common\models\CompetitionUser;
 use common\models\CompetitionWinner;
+use common\models\File;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -77,14 +78,41 @@ class SiteController extends Controller
             ],
         ];
     }
-   
-    /**
+     /**
      * Displays homepage.
      *
      * @return mixed
      */
     public function actionIndex()
     {
+        $model = Competition::find()->where(['open' => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
+        $modelToDay = Competition::find()->where(['open' => true, 'date' => date('Y-m-d')])->limit(4)->all();
+        //топ новых конкурсов
+        if ($model) {
+                $i = 0;
+                foreach ($model as $m) {
+                    \Yii::$app->view->params['concurs'][$i]['id'] = $m->id;
+                    \Yii::$app->view->params['concurs'][$i]['date'] = $m->date;
+                    \Yii::$app->view->params['concurs'][$i]['name'] = $m->name;
+                    \Yii::$app->view->params['concurs'][$i]['date'] = $m->date;
+                    \Yii::$app->view->params['concurs'][$i]['photo'] = $m->photo_file_id ? $m->photoFile->getOriginUrl() : '';
+                    \Yii::$app->view->params['concurs'][$i]['count'] = $m->getMembersCount();
+                    $i++;
+                }
+            }
+        //сегодня заканчиваются
+        if ($modelToDay && !empty($modelToDay)) {
+            $i = 0;
+            foreach ($modelToDay as $mToDay) {
+                \Yii::$app->view->params['concursToDay'][$i]['id'] = $mToDay->id;
+                \Yii::$app->view->params['concursToDay'][$i]['date'] = $mToDay->date;
+                \Yii::$app->view->params['concursToDay'][$i]['name'] = $mToDay->name;
+                \Yii::$app->view->params['concursToDay'][$i]['date'] = $mToDay->date;
+                \Yii::$app->view->params['concursToDay'][$i]['photo'] = $mToDay->photo_file_id ? $mToDay->photoFile->getOriginUrl() : '';
+                \Yii::$app->view->params['concursToDay'][$i]['count'] = $mToDay->getMembersCount();
+                $i++;
+            }
+        }
         $this->layout = "index";
         return $this->render('index');
     }

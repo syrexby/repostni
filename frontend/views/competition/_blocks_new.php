@@ -5,8 +5,8 @@ use yii\bootstrap\Html;
 use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
 
-/** @var Competition $model */
 
+/** @var Competition $model */
 $styleBlock1 = $model->photoFile ? 'style="background-image:url(' . $model->photoFile->getOriginUrl() . ');
                                     background-position:center;background-repeat: no-repeat; background-size: cover; margin-top:20px"' : '';
 $styleAll = !$model->photoFile ? 'style="padding-left: 0px;"' : '';
@@ -28,24 +28,23 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
             $time = strtotime($model->date);
         ?>
             <?=$d2 = date("d.m.Y", $time) ?>
-            <?='<div style="display: none">'.($days = date_diff(new DateTime($d2), new DateTime())->d+1).'</div>';?>
+            <?php
+            $datetime1 = new DateTime();
+            $datetime2 = new DateTime($d2);
+            $interval = $datetime1->diff($datetime2);
+            if($d2 == date('d.m.Y')){
+                $countDay = 0;
+            }else{
+                $countDay = $interval->d+1;
+            }
+            ?>
         <?php } ?>
     </div>
     <div class="concurs-date-bg">
         <div class="concurs-date-romb"></div>
-        <?php 
-            $t1 = strtotime($d1);
-            $t2 = strtotime($d2);
-        ?>
-        <?php if ($days >0 && $t1 < $t2) {?>
             <div class="concurs-date-count">
-                <?= $days.' дн.';?>
+                <?= $countDay.' дн.';?>
             </div>
-        <?php } else {?>
-            <div class="concurs-date-count-minus">
-            <?= 'Конкурс уже завершен!' ?>
-            </div>
-        <?php } ?>
     </div>
     <div class="concurs-edit">
     <?php
@@ -70,42 +69,43 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
                 echo '<p style="color: #74bd00; font-size: 24px; text-align: center;">'.Yii::$app->session->getFlash("competition").'</p>';
             } else {
                 Modal::begin([
-                    'header' => '<h2>Регистрация участника</h2>',
+                    'header' => '<h2>Стать участником</h2>',
                     "id" => "member",
                     'toggleButton' => [
                         'tag' => 'button',
-                        'class' => 'btn btn-lg btn-success',
+                        'class' => 'btn btn-lg btn-success uchastie-ok',
                         'label' => Yii::$app->user->isGuest ? 'Участвовать без регистрации' : 'Участвовать',
                     ],
                     "clientOptions" => ["show" => $formModel->hasErrors()],
                 ]);
                 ?>
+                
+                <p>Выберите удобную социальную сеть для участия в конкурсе</p>
+                <p><a href="/competition/member?id=<?= $model->id ?>&s=vkontakte"><img src="/img/vk.png"/></a> <a href="/competition/member?id=<?= $model->id ?>&s=facebook"><img src="/img/fb.png"/></a> <a
+                        href="/competition/member?id=<?= $model->id ?>&s=twitter"><img
+                            src="/img/tw.png"/></a></p>
+                <h2>или</h2>
                 <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); ?>
                 <?= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") ?>
                 <?= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") ?>
                 <div class="form-group" style="text-align: center;">
-                    <?= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg', 'name' => 'member-button']) ?>
+                    <?= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
-                <h2>или</h2>
-                <p>Выберите удобную социальную сеть для регистрации и участии в конкурсе</p>
-                <p><a href="/competition/member?id=<?= $model->id ?>&s=vkontakte"><img src="/img/vk.png"/></a> <a href="/competition/member?id=<?= $model->id ?>&s=facebook"><img src="/img/fb.png"/></a> <a
-                        href="/competition/member?id=<?= $model->id ?>&s=twitter"><img
-                            src="/img/tw.png"/></a></p>
+                
                 <?php
                 Modal::end();
             }
             ?>
             </div>
         <?php } else if(!$model->isMy()){  ?>
-            <p style="line-height: 40px; vertical-align: middle;">Организаторы не могу участвовать в конкурсах</p>
+            <div style="margin-top: 20px; text-align: right">Организаторы не могу участвовать в конкурсах</div>
         <?php }?>
     
     <?php }?>
 </div>
 
 <div class="clearfix"></div>
-
 <?php if ($model->photoFile) : ?>
     <div class="block" id="block-1" <?= $styleBlock1 ?>>
         <?php if ($model->isMy()) {?>
@@ -128,6 +128,22 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
 <?php else:?>
     <div class="block" id="block-1" <?= $styleBlock1 ?>>
         <p>Картинка не загружена</p>
+        <?php if ($model->isMy()) {?>
+
+            <div class="concurs-layouts" style="width:100%; overflow: hidden;  position: absolute; bottom: 0px;">
+                <div class="concurs-winner" style="width: 50%;float: right; height:50px; padding-top: 20px; padding-left: 36px; background-color: white;">
+                    <a href="/competition/winner?id=<?= $model->id ?>">Выбрать победителя и завершить конкурс</a>
+                </div>
+                <div class="block" id="block-6" style="width: 40%;float:right;overflow: hidden; background-color: white;">
+                    <div class="center"><a href="/competition/users?id=<?= $model->id ?>" class="block-btn">Список участников</a></div>
+                    <div class="block-content">
+                        <p><?= $model->getMembersCount() ?></p>
+                        <!--                        <div class="concurs-count-romb"></div>-->
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>
     </div>
 <?php endif;?>
 
@@ -191,10 +207,9 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
         <div class="block-content-header concurs-sponsor-header">СПОНСОР</div>
 
         <?php foreach ($model->competitionSponsors as $sponsor) : ?>
-            <div
-                class="concurs-sponsor-name concurs-sponsor-box"><?= \yii\helpers\StringHelper::truncate($sponsor->name, 24) ?>
+            <div class="block-content"><p class="concurs-org-name"><?= \yii\helpers\StringHelper::truncate($sponsor->name, 24) ?></p>
                 <?php if ($sponsor->url) {
-                    echo '<a href="' . \common\components\App::getUrl($sponsor->url) . '" target="_blank" class="concurs-sponsor-url"><br/>Перейти на сайт</a>';
+                    echo '<a href="' . \common\components\App::getUrl($sponsor->url) . '" target="_blank" class="concurs-sponsor-url">Перейти на сайт</a>';
                 } ?>
             </div>
         <?php endforeach; ?>
@@ -283,7 +298,7 @@ else {
 }
 ?>
 <div class="clearfix"></div>
-<div class="concurs-tabs">
+<div class="concurs-tabs tab-view">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Условия конкурса</a></li>

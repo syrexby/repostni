@@ -33,10 +33,11 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <?= $this->render("_head") ?>
-
+<section class="section-bread">
 <div class="container"><div class="row">
 <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
     </div></div>
+</section>    
 
 
 <div class="container">
