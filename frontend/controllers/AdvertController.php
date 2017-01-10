@@ -15,6 +15,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use common\models\search\Post as PostSearch;
 use yii\web\HttpException;
+use common\components\CurrentUser;
 
 /**
  * Site controller
@@ -133,6 +134,7 @@ class AdvertController extends Controller
     {
         $this->layout = "blank";
         CurrentUser::setFlashSuccess("Вы успешно разместили объявление");
+
         return $this->render("success");
     }
 
@@ -160,12 +162,14 @@ class AdvertController extends Controller
         if (sha1(\Yii::$app->params["pay_private_key"] . $_POST["data"] . \Yii::$app->params["pay_private_key"], 1) != $sign) {
             throw new HttpException(400, "Invalid signature");
         }
-
+        
         $data = Json::decode(base64_decode($_POST["data"]));
-        if (is_array($data) && isset($data["status"]) && isset($data["order_id"]) && ($data["status"] == "success" || $data["status"] == "wait_accept")) {
+        if (is_array($data) && isset($data["status"]) && isset($data["order_id"]) && ($data["status"] == "success" ||
+                $data["status"] == "wait_accept" || $data["status"] == "sandbox")) {
             $order = explode("_", $data["order_id"]);
             $adv = Post::find()->where(["id" => $order[0]])->one();
             if ($adv && $adv->status_id == AdvertStatus::STATUS_WAIT) {
+                
                 $adv->status_id = AdvertStatus::STATUS_ACTIVE;
                 $adv->date = Date::now();
                 $adv->save();

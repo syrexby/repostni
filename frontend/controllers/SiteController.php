@@ -85,8 +85,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = Competition::find()->where(['open' => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
-        $modelToDay = Competition::find()->where(['open' => true, 'date' => date('Y-m-d')])->limit(4)->all();
+        $model = Competition::find()->where(['open' => true, "active" => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
+        $modelToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')])->limit(4)->all();
         //топ новых конкурсов
         if ($model) {
                 $i = 0;
@@ -100,6 +100,7 @@ class SiteController extends Controller
                     $i++;
                 }
             }
+        //var_dump($model);
         //сегодня заканчиваются
         if ($modelToDay && !empty($modelToDay)) {
             $i = 0;
@@ -113,6 +114,8 @@ class SiteController extends Controller
                 $i++;
             }
         }
+        //var_dump('------------------------------');
+        //var_dump($modelToDay);
         $this->layout = "index";
         return $this->render('index');
     }

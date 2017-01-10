@@ -1490,8 +1490,56 @@ a.create-best-project:hover{
     width: auto;
     margin-bottom: 30px;
 }
-/*********************выпадающее меню*******************************/
-.menu-popup{
-    width: auto;
-    border: 1px solid red;
+.click-now{
+    color: #74bd00;
 }
+.click-now:hover{
+    color: #74bd00;
+    text-decoration: underline;
+}
+.btn-success,.btn-success:focus, .btn-success:active, .btn-success:hover, .btn-success:visited{
+    border:none;
+}
+/*********************выпадающее меню*******************************/
+#menu__popup{
+    width: 100%;
+    opacity: 0;
+}
+.menu__fixed{
+    z-index: 99999;
+    position: fixed;
+    left: 0px;
+    top:0px;
+}
+.menu__conteiner{
+    padding-top: 25px;
+    height: 125px;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 28px;
+    margin-right: auto;
+    margin-left: auto;
+    background: white;
+}
+.count-uch{
+    text-align: right;
+    padding: 70px 75px 0 0;
+}
+.menu__left, .menu__right{
+    float: left;
+}
+.menu__left{
+    min-width: 500px;
+}
+@media (min-width: 1200px) {
+    .menu__conteiner {
+        width: 1170px;
+    }
+}
+@media (min-width: 992px) {
+    .menu__conteiner {
+        width: 970px;
+    }
+}
+
+

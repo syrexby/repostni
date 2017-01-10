@@ -27,6 +27,7 @@ class Post extends Advert
             "currency" => "UAH",
             "description" => "Оплата рекламы - repostni.com",
             "order_id" => $this->order_id,
+            //"sandbox" => 1,
             "server_url" => "http://repostni.com/advert/status",
             "result_url" => "http://repostni.com/advert/success",
         ]);

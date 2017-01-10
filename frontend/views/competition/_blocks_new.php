@@ -17,33 +17,41 @@ $row = explode(" ", trim($model->organizer));
 $oh2 = \yii\helpers\StringHelper::truncate(trim($row[0]), 17);
 $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) : "&nbsp;";
 ?>
-
 <h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
 <div class="block" id="block-0">
     <div class="concurs-date">
         <?=$d1 = date('d.m.Y')?> -
-
         <?php
-        if ($model->date) {
-            $time = strtotime($model->date);
+        $time = strtotime($model->date);
+        echo $d2 = date("d.m.Y", $time);
         ?>
-            <?=$d2 = date("d.m.Y", $time) ?>
-            <?php
-            $datetime1 = new DateTime();
-            $datetime2 = new DateTime($d2);
-            $interval = $datetime1->diff($datetime2);
-            if($d2 == date('d.m.Y')){
-                $countDay = 0;
-            }else{
-                $countDay = $interval->d+1;
-            }
-            ?>
-        <?php } ?>
+        
     </div>
     <div class="concurs-date-bg">
         <div class="concurs-date-romb"></div>
             <div class="concurs-date-count">
-                <?= $countDay.' дн.';?>
+                <?php
+                if ($model->date) {
+                    $time = strtotime($model->date);
+                    $tnow = strtotime("now");
+                    ?>
+                    <?php
+                    $d2 = date("d.m.Y", $time);
+                   
+                    $datetime1 = new DateTime();
+                    $datetime2 = new DateTime($d2);
+                    $interval = $datetime1->diff($datetime2);
+                    if($d2 == date('d.m.Y')){
+                        $countDay = 0;
+                        echo $countDay.' дн.';
+                    }elseif($time < $tnow){
+                        echo 'Завершен';
+                    }else{
+                        $countDay = $interval->d+1;
+                        echo $countDay.' дн';
+                    }
+                    ?>
+                <?php } ?>
             </div>
     </div>
     <div class="concurs-edit">
@@ -54,7 +62,8 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
     </div>
     <?php
     $time = strtotime($model->date);
-    if (\common\helpers\Date::now() < $model->date) { ?>
+    $tnow = strtotime("now");
+    //if ($time < $tnow) { ?>
     
         <?php
 
@@ -102,7 +111,7 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
             <div style="margin-top: 20px; text-align: right">Организаторы не могу участвовать в конкурсах</div>
         <?php }?>
     
-    <?php }?>
+    <?php //}?>
 </div>
 
 <div class="clearfix"></div>
@@ -332,3 +341,105 @@ else {
 
 </div>
 
+<div id="menu__popup">
+    <div class="menu__conteiner">
+        <div class="menu__left">
+            <h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
+            <div class="block" id="block-0">
+                <div class="concurs-date">
+                    <?=$d1 = date('d.m.Y')?> -
+                    <?php
+                    $time = strtotime($model->date);
+                    echo $d2 = date("d.m.Y", $time);
+                    ?>
+
+                </div>
+                <div class="concurs-date-bg">
+                    <div class="concurs-date-romb"></div>
+                    <div class="concurs-date-count">
+                        <?php
+                        if ($model->date) {
+                            $time = strtotime($model->date);
+                            $tnow = strtotime("now");
+                            ?>
+                            <?php
+                            $d2 = date("d.m.Y", $time);
+
+                            $datetime1 = new DateTime();
+                            $datetime2 = new DateTime($d2);
+                            $interval = $datetime1->diff($datetime2);
+                            if($d2 == date('d.m.Y')){
+                                $countDay = 0;
+                                echo $countDay.' дн.';
+                            }elseif($time < $tnow){
+                                echo 'Завершен';
+                            }else{
+                                $countDay = $interval->d+1;
+                                echo $countDay.' дн';
+                            }
+                            ?>
+                        <?php } ?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu_right">
+            <div class="concurs-edit">
+                <?php
+                if ($model->isMy() && $model->open) {
+                    echo '<a href="/competition/edit?id='.$model->id.'" style="background:#e5e5e5; color:black; padding:12px 20px;">Редактировать конкурс</a>';
+                }?>
+            </div>
+            <?php
+            $time = strtotime($model->date);
+            if (\common\helpers\Date::now() < $model->date) { ?>
+
+                <?php
+
+                if (!$model->isMy() && Yii::$app->user->isGuest) { ?>
+                    <div class="uchastie">
+                        <?php
+                        if (Yii::$app->session->hasFlash("competition")) {
+                            echo '<p style="color: #74bd00; font-size: 24px; text-align: center;">'.Yii::$app->session->getFlash("competition").'</p>';
+                        } else {
+                            Modal::begin([
+                                'header' => '<h2>Стать участником</h2>',
+                                "id" => "member",
+                                'toggleButton' => [
+                                    'tag' => 'button',
+                                    'class' => 'btn btn-lg btn-success uchastie-ok',
+                                    'label' => Yii::$app->user->isGuest ? 'Участвовать без регистрации' : 'Участвовать',
+                                ],
+                                "clientOptions" => ["show" => $formModel->hasErrors()],
+                            ]);
+                            ?>
+
+                            <p>Выберите удобную социальную сеть для участия в конкурсе</p>
+                            <p><a href="/competition/member?id=<?= $model->id ?>&s=vkontakte"><img src="/img/vk.png"/></a> <a href="/competition/member?id=<?= $model->id ?>&s=facebook"><img src="/img/fb.png"/></a> <a
+                                    href="/competition/member?id=<?= $model->id ?>&s=twitter"><img
+                                        src="/img/tw.png"/></a></p>
+                            <h2>или</h2>
+                            <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); ?>
+                            <?= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") ?>
+                            <?= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") ?>
+                            <div class="form-group" style="text-align: center;">
+                                <?= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) ?>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+
+                            <?php
+                            Modal::end();
+                        }
+                        ?>
+                    </div>
+                <?php } else if(!$model->isMy()){  ?>
+                    <div style="margin-top: 20px; text-align: right">Организаторы не могу участвовать в конкурсах</div>
+                <?php }?>
+            <?php }?>
+            <?php echo '<div class="count-uch">'.$model->getMembersCount().' участников</div>'; ?>
+        </div>
+
+
+    </div>
+</div>

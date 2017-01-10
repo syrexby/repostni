@@ -20,7 +20,7 @@ $title = $this->title . " | repostni";
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=1000">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($title) ?></title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

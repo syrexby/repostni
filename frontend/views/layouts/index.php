@@ -21,7 +21,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=1000">
     <?= Html::csrfMetaTags() ?>
     <title>repostni - бесплатный и удобный сервис для организации конкурсов</title>
 	<meta name="description"
@@ -88,20 +88,24 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                             <a href="/id<?= $concurs['id'];?>">
                                 <div class="img">
                                     <div class="ostal">
-                                        <?php 
+
+                                        <?php
                                             $datetime2 = new DateTime($concurs['date']);
                                             $interval = $datetime1->diff($datetime2);
-                      
+                                        
+                                            $t1 = strtotime("now");
+                                            $t2 = strtotime($concurs['date']);
+                                        
                                             if($concurs['date'] == date('Y-m-d')){
                                                 $countDay = 0;
+                                                echo 'Осталось '.$countDay.' дней';
+                                            }elseif ($t2 < $t1){
+                                                echo 'Завершен';
                                             }else{
                                                 $countDay = $interval->d+1;
+                                                echo 'Осталось '.$countDay.' дней';
                                             }
-                                        
                                         ?>
-                                            Осталось
-                                            <?= $countDay;?>
-                                            дней
                                     </div>
                                     <?php if (!empty($concurs['photo'])) { ?>
                                     <img src="<?= $concurs['photo'];?>" alt="" width="100%" height="103">
@@ -199,7 +203,8 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                     <li>Контроль честности результатов</li>
                     <li>Самая быстрая регистрация</li>
                 </ul>
-                <h1>Присоединяйтесь<br/> к нам<br/> <span style="text-decoration: underline">прямо сейчас!</span></h1>
+                
+                <h1>Присоединяйтесь<br/> к нам<br/><a href="/login" class="click-now">прямо сейчас!</a></h1>
             </div>
         </div>
         
