@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         "plugins/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.min.js",
         "js/app.js?17",
         "js/menu.js",
+        "js/advert_right.js",
     ];
     public $depends = [
         'yii\web\YiiAsset',

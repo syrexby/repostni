@@ -47,11 +47,11 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
                     }elseif($time < $tnow){
                         echo 'Завершен';
                     }else{
-                        $countDay = $interval->d+1;
+                        $countDay = $interval->days+1;
                         echo $countDay.' дн';
                     }
                     ?>
-                <?php } ?>
+                <?php }?>
             </div>
     </div>
     <div class="concurs-edit">
@@ -61,9 +61,10 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
     }?>
     </div>
     <?php
+    //var_dump($model->date);
     $time = strtotime($model->date);
     $tnow = strtotime("now");
-    //if ($time < $tnow) { ?>
+    if ($time > $tnow || date('Y-m-d') == $model->date) { ?>
     
         <?php
 
@@ -108,10 +109,10 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
             ?>
             </div>
         <?php } else if(!$model->isMy()){  ?>
-            <div style="margin-top: 20px; text-align: right">Организаторы не могу участвовать в конкурсах</div>
+            <div style="margin-top: 20px; text-align: right">Организаторы не могут участвовать в конкурсах</div>
         <?php }?>
     
-    <?php //}?>
+    <?php } else{ echo '';}?>
 </div>
 
 <div class="clearfix"></div>
@@ -216,7 +217,7 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
         <div class="block-content-header concurs-sponsor-header">СПОНСОР</div>
 
         <?php foreach ($model->competitionSponsors as $sponsor) : ?>
-            <div class="block-content"><p class="concurs-org-name"><?= \yii\helpers\StringHelper::truncate($sponsor->name, 24) ?></p>
+            <div class="block-content"><p class="concurs-sponsor-name"><?= \yii\helpers\StringHelper::truncate($sponsor->name, 24) ?></p>
                 <?php if ($sponsor->url) {
                     echo '<a href="' . \common\components\App::getUrl($sponsor->url) . '" target="_blank" class="concurs-sponsor-url">Перейти на сайт</a>';
                 } ?>
@@ -340,7 +341,7 @@ else {
     </div>
 
 </div>
-
+<!----------------------------------------Выпадающее меню--------------------------------------------------->
 <div id="menu__popup">
     <div class="menu__conteiner">
         <div class="menu__left">
@@ -374,7 +375,7 @@ else {
                             }elseif($time < $tnow){
                                 echo 'Завершен';
                             }else{
-                                $countDay = $interval->d+1;
+                                $countDay = $interval->days+1;
                                 echo $countDay.' дн';
                             }
                             ?>
@@ -388,12 +389,13 @@ else {
             <div class="concurs-edit">
                 <?php
                 if ($model->isMy() && $model->open) {
-                    echo '<a href="/competition/edit?id='.$model->id.'" style="background:#e5e5e5; color:black; padding:12px 20px;">Редактировать конкурс</a>';
+                    echo '<a href="/competition/edit?id='.$model->id.'" style="background:#e5e5e5; color:black; padding:12px 35px;">Редактировать конкурс</a>';
                 }?>
             </div>
             <?php
             $time = strtotime($model->date);
-            if (\common\helpers\Date::now() < $model->date) { ?>
+            $tnow = strtotime("now");
+            if ($time > $tnow || date('Y-m-d') == $model->date) { ?>
 
                 <?php
 
@@ -434,7 +436,7 @@ else {
                         ?>
                     </div>
                 <?php } else if(!$model->isMy()){  ?>
-                    <div style="margin-top: 20px; text-align: right">Организаторы не могу участвовать в конкурсах</div>
+                    <div style="margin-top: 20px; text-align: right">Организаторы не могут участвовать в конкурсах</div>
                 <?php }?>
             <?php }?>
             <?php echo '<div class="count-uch">'.$model->getMembersCount().' участников</div>'; ?>

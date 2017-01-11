@@ -21,6 +21,7 @@ if (!isset($button)) {
                 <p style="color:#666666;"><?= \yii\bootstrap\Html::encode($post->description) ?></p></a>
         </div>
     <?php } ?>
-    </div>    
+    </div>
+    <button class="show__more">Показать больше</button>
 
 

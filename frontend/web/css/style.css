@@ -359,9 +359,7 @@ a.create-best-project:hover {
     font-size: 36px;
 }
 
-.competition-blocks {
-    padding: 20px 0;
-}
+
 
 .competition-blocks .block {
     width: 235px;
@@ -382,7 +380,7 @@ a.create-best-project:hover {
 }
 
 .competition-blocks .block .block-content p {
-    line-height: 1;
+    line-height: 38px;
 }
 
 .competition-blocks .block .block-content-header {
@@ -938,9 +936,6 @@ a.btn-remove {
     float: right;
     margin-top: 5px;
 }
-.concurs-edit a:hover{
-    background: #c1c1c1!important;
-}
 
 .concurs-priz-header, .concurs-org-header, .concurs-sponsor-header, .concurs-usl-header, .concurs-video-header{
     font-size:18px;
@@ -971,14 +966,14 @@ a.btn-remove {
     font-size: 14px;
 }
 .concurs-org-url,.concurs-sponsor-url{
-    color: #9bda44;
+    color: #5d960e;
     text-decoration: none;
     font-size: 16px;
     font-weight: 100;
 }
 .concurs-org-url:hover,.concurs-sponsor-url:hover{
     text-decoration: underline;
-    color: #9bda44;
+    color: #5d960e;
     cursor: pointer;
 }
 .concurs-org-name{
@@ -1018,14 +1013,14 @@ a.btn-remove {
     position: relative;
 }
 .concurs-edit a{
-    background: #e5e5e5;
+    background: #f5f5f5!important;
     text-decoration: none;
-    color:black;
+    color: #939393!important;
     padding:12px 20px;
     float:right
 }
 .concurs-edit a:hover{
-    background: #cfcfcf;
+    background: #e8e8e8!important;
 }
 .adver-right:hover{
     background: #3191ba!important;
@@ -1394,7 +1389,13 @@ a.create-best-project:hover{
     text-transform: uppercase;
     opacity: 1;
     letter-spacing: 1px;
+    border-bottom: 1px solid #7adefe!important;
+    display: inline!important;
+    padding: 0 0 3px 0!important;
+
 }
+
+
 .top-concurs .tab-content, .top-concurs .nav-tabs{
     border: none;
 }
@@ -1415,6 +1416,7 @@ a.create-best-project:hover{
     text-transform: uppercase;
     opacity: 0.8;
     letter-spacing: 1px;
+    padding: 0!important;
 }
 .colll{
     color:#33b0d9;
@@ -1436,10 +1438,14 @@ a.create-best-project:hover{
     text-decoration: none;
     cursor: pointer;
 }
-.index-concurs{
+.active .index-concurs{
     float: left;
-    padding: 10px;
+    width: 216px;
+    margin-right: 20px;
     word-wrap: break-word;
+}
+.active .index-concurs:nth-child(4){
+    margin-right: 0px!important;
 }
 .index-concurs a:hover{
     text-decoration: none;
@@ -1500,21 +1506,40 @@ a.create-best-project:hover{
 .btn-success,.btn-success:focus, .btn-success:active, .btn-success:hover, .btn-success:visited{
     border:none;
 }
+.show__more:active, .show__more:focus, .show__more:visited{
+    border:none;
+}
+.show__more{
+    background: #f5f5f5;
+    font-size: 12px;
+    color:#939393;
+    border:none;
+    width: 100%;
+    padding: 12px 0;
+    outline: 0;
+}
+.show__more:hover{
+    background: #e8e8e8;
+}
+.btn-success, .btn-success:focus, .btn-success:active, .btn-success:hover, .btn-success:visited{
+    outline: 0!important;
+}
 /*********************выпадающее меню*******************************/
 #menu__popup{
     width: 100%;
     opacity: 0;
 }
 .menu__fixed{
-    z-index: 99999;
+    z-index: 999;
     position: fixed;
     left: 0px;
     top:0px;
 }
 .menu__conteiner{
     padding-top: 25px;
-    height: 125px;
+    overflow: hidden;
     margin: auto;
+    padding-bottom: 10px;
     padding-right: 15px;
     padding-left: 28px;
     margin-right: auto;
@@ -1530,6 +1555,7 @@ a.create-best-project:hover{
 }
 .menu__left{
     min-width: 500px;
+    width: 680px;
 }
 @media (min-width: 1200px) {
     .menu__conteiner {

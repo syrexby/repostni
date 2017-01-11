@@ -78,13 +78,13 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content">
+                <div class="tab-content" style="padding: 0 0 15px 15px;">
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <?php
                         $datetime1 = new DateTime();
                         ?>
                         <?php foreach ($this->params['concurs'] as $concurs){?>
-                        <div class="index-concurs col-md-3 col-xs-6">
+                        <div class="index-concurs">
                             <a href="/id<?= $concurs['id'];?>">
                                 <div class="img">
                                     <div class="ostal">
@@ -102,7 +102,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                                             }elseif ($t2 < $t1){
                                                 echo 'Завершен';
                                             }else{
-                                                $countDay = $interval->d+1;
+                                                $countDay = $interval->days+1;
                                                 echo 'Осталось '.$countDay.' дней';
                                             }
                                         ?>
@@ -129,14 +129,14 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                             <p style="color:white; font-weight: bold; font-size: 15px;">Сегодня нет розыгрышей!</p>
                         <?php }else{?>
                             <?php foreach ($this->params['concursToDay'] as $concurs){?>
-                                <div class="index-concurs col-md-3 col-xs-6">
+                                <div class="index-concurs">
                                     <a href="/id<?= $concurs['id'];?>">
                                         <div class="img">
                                             <div class="ostal">
                                                 <?php
                                                 $datetime2 = new DateTime($concurs['date']);
                                                 $interval = $datetime1->diff($datetime2);
-                                                $countDay = $interval->d + 1;
+                                                $countDay = $interval->days + 1;
                                                 ?>
 
                                                 Осталось
@@ -203,8 +203,9 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                     <li>Контроль честности результатов</li>
                     <li>Самая быстрая регистрация</li>
                 </ul>
-                
+                <?php if (Yii::$app->user->isGuest) { ?>
                 <h1>Присоединяйтесь<br/> к нам<br/><a href="/login" class="click-now">прямо сейчас!</a></h1>
+                <?php }?>
             </div>
         </div>
         
