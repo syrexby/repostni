@@ -1013,14 +1013,13 @@ a.btn-remove {
     position: relative;
 }
 .concurs-edit a{
-    background: #f5f5f5!important;
+
     text-decoration: none;
-    color: #939393!important;
     padding:12px 20px;
     float:right
 }
 .concurs-edit a:hover{
-    background: #e8e8e8!important;
+    background: #d2d2d2!important;
 }
 .adver-right:hover{
     background: #3191ba!important;
@@ -1517,6 +1516,7 @@ a.create-best-project:hover{
     width: 100%;
     padding: 12px 0;
     outline: 0;
+    margin-bottom: 30px;
 }
 .show__more:hover{
     background: #e8e8e8;
@@ -1524,6 +1524,14 @@ a.create-best-project:hover{
 .btn-success, .btn-success:focus, .btn-success:active, .btn-success:hover, .btn-success:visited{
     outline: 0!important;
 }
+.table_td_f_my{
+    width:340px!important;
+    display: block;
+    word-wrap: break-word;
+    font-size: 13px;
+    border-top: 1px solid #ddd;
+}
+
 /*********************выпадающее меню*******************************/
 #menu__popup{
     width: 100%;
