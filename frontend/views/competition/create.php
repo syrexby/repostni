@@ -87,10 +87,10 @@ $videoInfo = '<div class="video-info">
             <label class="control-label">1 место</label>
             <input type="text" class="form-control" maxlength="20" name="Prize[1][name]" placeholder="Название приза">
         </div>
-        <div class="form-group field-competition-prize">
+        <!--<div class="form-group field-competition-prize">
             <div class="form-group"><input type="text" class="form-control" name="Prize[1][url]"
                                            placeholder="Ссылка на приз (не обязательно)"></div>
-        </div>
+        </div>-->
     </div>
 
 </div>

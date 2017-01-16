@@ -18,7 +18,7 @@
                             <li><a href="/help">Помощь проекту</a></li>
                             <li><a href="/contacts">Контакты</a></li>
                             <li class="divider"></li>
-                            <li><?= Yii::$app->user->isGuest ? '<a href="/login">Вход</a>' : '<a href="/logout">Выход</a>' ?></li>
+                            <li><?= Yii::$app->user->isGuest ? '<a href="/login">Вход для организаторов</a>' : '<a href="/logout">Выход</a>' ?></li>
                         </ul>
                     </li>
                     <li><a href="/help">Помощь проекту</a></li>

@@ -66,7 +66,7 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            "username" => "Логин",
+            "username" => "Ваш E-mail",
             "password" => "Пароль",
             "full_name" => "Ваше имя"
         ];
