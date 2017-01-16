@@ -917,8 +917,8 @@ a.btn-remove {
 .concurs-date-count{
     background: #32b0d9;
     color:white;
-    padding: 8px 0;
-    width: 70px;
+    padding: 8px;
+    min-width: 70px;
     text-align: center;
     float: left;
     margin: 13px 0 0 15px
@@ -1531,7 +1531,11 @@ a.create-best-project:hover{
     font-size: 13px;
     border-top: 1px solid #ddd;
 }
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
 
+    background-color: #32b0d9!important;
+    border-color: #32b0d9!important;
+}
 /*********************выпадающее меню*******************************/
 #menu__popup{
     width: 100%;
