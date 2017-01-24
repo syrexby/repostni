@@ -78,14 +78,22 @@ class CompetitionController extends Controller
     {
         // выполняем запрос
         $queryToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')]);
-        $query = Competition::find()->where(['open' => true, "active" => true]);
+        $query = Competition::find()
+            ->select([
+                '{{competition}}.*', // получить все атрибуты конкурса
+                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+            ])
+            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+            ->where(['open' => true, "active" => true]);
+        
         $queryClosed = Competition::find()->where(['<','date',date('Y-m-d')]);
-
         // делаем копию выборки
         $countQueryToDay = clone $queryToDay;
         $countQuery = clone $query;
         $countQueryClosed = clone $queryClosed;
-
+//        var_dump($query);
+//        die;
         // подключаем класс Pagination, выводим по 10 пунктов на страницу
         $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -104,11 +112,12 @@ class CompetitionController extends Controller
             ->all();
         $models = $query->offset($pages->offset)
             ->limit($pages->limit)
-            ->orderby(['id'=>SORT_DESC])
+            ->orderBy(['competitionuserscount'=>SORT_DESC])
             ->all();
+//var_dump($models);
+//        die;
 
-
-
+        
         return $this->render('list',[
             'models' => $models,
             'modelsToDay' => $modelsToDay,
