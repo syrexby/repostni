@@ -185,7 +185,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionSponsor();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-                        $sModel->url = trim($sponsor["url"]);
+//                        $sModel->url = trim($sponsor["url"]);
                         $sModel->save();
                     }
                 }
@@ -199,7 +199,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionPrize();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-                        $sModel->url = $sponsor["url"] ? trim($sponsor["url"]) : "";
+//                        $sModel->url = trim($sponsor["url"]);
                         $sModel->position = $i;
                         $sModel->save();
                         $i++;
@@ -266,7 +266,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionSponsor();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-                        $sModel->url = trim($sponsor["url"]);
+//                        $sModel->url = trim($sponsor["url"]);
                         $sModel->save();
                     }
                 }
@@ -288,7 +288,7 @@ class CompetitionController extends Controller
                             $sModel->position = $i;
                         }
                         $sModel->name = trim($sponsor["name"]);
-                        $sModel->url = trim($sponsor["url"]);
+//                        $sModel->url = trim($sponsor["url"]);
 
                         $sModel->save();
                         $i++;
