@@ -246,7 +246,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionPrize();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-                        $sModel->url = trim($sponsor["url"]);
+                        $sModel->url = $sponsor["url"] ? trim($sponsor["url"]) : "";
                         $sModel->position = $i;
                         $sModel->save();
                         $i++;
@@ -374,14 +374,14 @@ class CompetitionController extends Controller
                     throw new HttpException(403);
                 }
                 $origin = File::getPath($file->path, File::$originDir, true) . "." . $file->extension;
-                $sized = File::getPath($file->path, "631_1000", true) . "." . $file->extension;
-                file_get_contents($file->getUrl(631, 1000, false));
+                $sized = File::getPath($file->path, "636_1000", true) . "." . $file->extension;
+                file_get_contents($file->getUrl(636, 1000, false));
                 $imgine = new \yii\imagine\Image();
                 $img = $imgine->getImagine()->open($sized);
                 $img->crop(new Point($model->x1, $model->y1), new Box((int)($model->x2 - $model->x1), (int)($model->y2 - $model->y1)));
                 $img->save($origin, ['quality' => 100]);
                 $file->clear();
-                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(631, 1000, false) ]]);
+                return Json::encode(["code" => 0, "result" => ["url" => $file->getUrl(636, 1000, false) ]]);
             }
         }
         return Json::encode(["code" => 1]);
@@ -459,7 +459,7 @@ class CompetitionController extends Controller
                     $model->video_url_final = trim($_POST["Competition"]["video_url_final"]);
                 }
                 $model->save();
-                CurrentUser::setFlashSuccess("Вы успешно добавили видеоотчет.");;
+                CurrentUser::setFlashSuccess("Вы успешно добавили видеоотчет.");
 //                $this->refresh();
                 return $this->redirect("/id" . $model->id);
             }
