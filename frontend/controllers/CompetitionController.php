@@ -23,7 +23,8 @@ use yii\filters\AccessControl;
 use yii\web\HttpException;
 use common\models\search\CompetitionUser as CompetitionUserSearch;
 use common\models\search\Competition as CompetitionSearch;
-
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 /**
  * Site controller
  *
@@ -73,7 +74,51 @@ class CompetitionController extends Controller
             ],
         ];
     }
+    public function actionList()
+    {
+        // выполняем запрос
+        $queryToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')]);
+        $query = Competition::find()->where(['open' => true, "active" => true]);
+        $queryClosed = Competition::find()->where(['<','date',date('Y-m-d')]);
 
+        // делаем копию выборки
+        $countQueryToDay = clone $queryToDay;
+        $countQuery = clone $query;
+        $countQueryClosed = clone $queryClosed;
+
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
+
+        // приводим параметры в ссылке к ЧПУ
+        $pagesToDay->pageSizeParam = false;
+        $pages->pageSizeParam = false;
+        $pagesClosed->pageSizeParam = false;
+
+        $modelsClosed = $queryClosed->offset($pagesClosed->offset)
+            ->limit($pagesClosed->limit)
+            ->all();
+        $modelsToDay = $queryToDay->offset($pagesToDay->offset)
+            ->limit($pagesToDay->limit)
+            ->all();
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->orderby(['id'=>SORT_DESC])
+            ->all();
+
+
+
+        return $this->render('list',[
+            'models' => $models,
+            'modelsToDay' => $modelsToDay,
+            'pagesToDay' => $pagesToDay,
+            'pages' => $pages,
+            'modelsClosed' => $modelsClosed,
+            'pagesClosed' => $pagesClosed,
+        ]);
+
+    }
 
     public function actionIndex()
     {
@@ -88,6 +133,8 @@ class CompetitionController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
+
+
     public function actionView($id)
     {
         $model = Competition::find()->where(["id" => $id, "active" => true])->one();

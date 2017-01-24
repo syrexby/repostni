@@ -138,6 +138,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                                                 $interval = $datetime1->diff($datetime2);
                                                 $countDay = $interval->days + 1;
                                                 ?>
+                                                
 
                                                 Осталось
                                                  0
@@ -164,7 +165,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                 <div class="clearfix"></div>
                 <br/>
                 <div style="margin-top: 50px;">
-                    <a href="#" class="index-all-concurs">Все конкурсы</a>
+                    <!--<a href="#" class="index-all-concurs">Все конкурсы</a>-->
                 </div>
             </div>
         </div>
