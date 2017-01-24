@@ -1579,5 +1579,80 @@ a.create-best-project:hover{
         width: 970px;
     }
 }
+.competition-list .nav{
+   background: #f7f7f7;
+}
+.competition-list .nav li{
+    margin: 20px;
+}
+.competition-list .nav a{
+    text-transform: uppercase;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    border: none!important;
+    background: none!important;
+    padding: 0!important;
+    display: initial!important;
+}
+.competition-list .nav-tabs{
+    border-bottom: none!important;
+}
+
+.competition-list .active, .competition-list .nav a:hover, .competition-list .nav a:active,.competition-list .nav a:visited, .competition-list .nav a:focus{
+    border:none!important;
+}
+.competition-list .nav a:hover, .competition-list .nav a:active, .competition-list .nav a:focus{
+    border:none!important;
+    color:#33b0d9!important;
+    border-bottom: 1px solid #33b0d9!important;
+}
+.competition-list .tab-content{
+    padding: 15px 0 15px 15px!important;
+    border: none!important;
+}
+.competition-tr{
+    overflow: hidden;
+}
+.competition-tr div{
+    float: left;
+    min-height: 50px;
+    margin: 10px 0px;
+    font-size: 14px;
+    color:#000000;
+    line-height: 46px;
+}
+.competition-tr div .more{
+    color:#69b401!important;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 14px 23px;
+}
+.competition-tr div .more:hover{
+    color:white!important;
+    background: #69b401;
+    cursor: pointer;
+    text-decoration: none;
+}
+.competition-tr div .link{
+    color: black;
+}
+.competition-tr div span{
+    display: inline-block;
+    vertical-align: middle;
+    width: 250px;
+    line-height: normal;
+}
+.competition-tr div .link:hover{
+    color: #33b0d9!important;
+}
+.competition-tr:nth-child(even) {
+    background: #f6f6f6!important;
+}
+.competition-tr:nth-child(odd) {
+    background: white!important;
+}
+
 
 

@@ -78,6 +78,7 @@ class SiteController extends Controller
             ],
         ];
     }
+    
      /**
      * Displays homepage.
      *
@@ -119,6 +120,7 @@ class SiteController extends Controller
         $this->layout = "index";
         return $this->render('index');
     }
+    
     /**
      * Logs in a user.
      *
