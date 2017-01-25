@@ -25,6 +25,7 @@ use common\models\search\CompetitionUser as CompetitionUserSearch;
 use common\models\search\Competition as CompetitionSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+
 /**
  * Site controller
  *
@@ -77,8 +78,8 @@ class CompetitionController extends Controller
     public function actionList()
     {
         // выполняем запрос
-        $queryToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')]);
-        $query = Competition::find()
+        $queryToDay = Competition::find()->where(['open' => true, "active" => true, "created_date" => date('Y-m-d')]);
+        $queryPop = Competition::find()
             ->select([
                 '{{competition}}.*', // получить все атрибуты конкурса
                 'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
@@ -86,44 +87,41 @@ class CompetitionController extends Controller
             ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
             ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
             ->where(['open' => true, "active" => true]);
+            
+        $queryClosed = Competition::find()->where(['>','date',date('Y-m-d')]);
         
-        $queryClosed = Competition::find()->where(['<','date',date('Y-m-d')]);
         // делаем копию выборки
         $countQueryToDay = clone $queryToDay;
-        $countQuery = clone $query;
+        $countQueryPop = clone $queryPop;
         $countQueryClosed = clone $queryClosed;
-//        var_dump($query);
-//        die;
-        // подключаем класс Pagination, выводим по 10 пунктов на страницу
 
-            $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
-            $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
-            $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
+        $pagesPop = new Pagination(['totalCount' => $countQueryPop->count(), 'pageSize' => 10]);
+        $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
 
         // приводим параметры в ссылке к ЧПУ
         $pagesToDay->pageSizeParam = false;
-        $pages->pageSizeParam = false;
+        $pagesPop->pageSizeParam = false;
         $pagesClosed->pageSizeParam = false;
 
         $modelsClosed = $queryClosed->offset($pagesClosed->offset)
             ->limit($pagesClosed->limit)
+            ->orderBy(['date'=>SORT_ASC])
             ->all();
         $modelsToDay = $queryToDay->offset($pagesToDay->offset)
             ->limit($pagesToDay->limit)
             ->all();
-        $models = $query->offset($pages->offset)
-            ->limit($pages->limit)
+        $modelsPop = $queryPop->offset($pagesPop->offset)
+            ->limit($pagesPop->limit)
             ->orderBy(['competitionuserscount'=>SORT_DESC])
             ->all();
-//var_dump($models);
-//        die;
-
         
         return $this->render('list',[
-            'models' => $models,
+            'modelsPop' => $modelsPop,
             'modelsToDay' => $modelsToDay,
             'pagesToDay' => $pagesToDay,
-            'pages' => $pages,
+            'pagesPop' => $pagesPop,
             'modelsClosed' => $modelsClosed,
             'pagesClosed' => $pagesClosed,
         ]);

@@ -165,7 +165,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                 <div class="clearfix"></div>
                 <br/>
                 <div style="margin-top: 50px;">
-                    <!--<a href="#" class="index-all-concurs">Все конкурсы</a>-->
+                    <a href="/competition/list" class="index-all-concurs">Все конкурсы</a>
                 </div>
             </div>
         </div>

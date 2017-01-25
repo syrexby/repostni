@@ -8,15 +8,49 @@ use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 /* @var $model app\models\page */
 /* @var $form ActiveForm */
-
+$this->title = "Список конкурсов";
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
 <div class="competition-list">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Топ новых</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Завершающиеся</a></li>
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Топ популярных</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Топ новых</a></li>
         <!--<li role="presentation"><a href="#closed" aria-controls="closed" role="tab" data-toggle="tab">Завершившиеся</a></li>-->
-        <!--<li role="presentation" class="active col-md-4"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Топ популярных</a></li>-->
+        <li role="presentation"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Завершающиеся</a></li>
+        <!--<li>
+
+            <select name="count" id="count">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            
+        </li>
+ 
+        <script>
+            $(document).ready(function() {
+
+                $("#count").change(function(){
+                    var data = ($('#count option:selected').val());
+                    var msg   = $('#count').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "list",
+                        data: msg,
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+                })
+                
+            });
+        </script>-->
+ 
+        
     </ul>
     
     <!-- Tab panes -->
@@ -24,7 +58,8 @@ use yii\widgets\LinkPager;
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="competiton-tbody">
                 <?php
-                foreach ($models as $model):?>
+                foreach ($modelsPop as $model):?>
+                    
                     <div class="competition-tr">
                         <div style="width: 70px;">
                        <?php
@@ -63,7 +98,7 @@ use yii\widgets\LinkPager;
                 <?php endforeach;?>
                 <div style="text-align: center; margin-top: 30px;">
                 <?php echo LinkPager::widget([
-                    'pagination' => $pages,
+                    'pagination' => $pagesPop,
                 ]);?>
                 </div>
             </div>
@@ -72,6 +107,7 @@ use yii\widgets\LinkPager;
         <div role="tabpanel" class="tab-pane" id="profile">
             <div class="competiton-tbody">
                 <?php
+                
                 if($modelsToDay):
                 foreach ($modelsToDay as $model):?>
                     <div class="competition-tr">
@@ -110,7 +146,7 @@ use yii\widgets\LinkPager;
                     </div>
                 <?php endforeach;?>
                 <?php else:?>
-                    Нет конкурсов которые завершаются сегодня!
+                    Сегодня нет созданных конкурсов!
                 <?php endif;?>
                 <?php echo LinkPager::widget([
                     'pagination' => $pagesToDay,
@@ -168,9 +204,8 @@ use yii\widgets\LinkPager;
         <div role="tabpanel" class="tab-pane" id="rating">
             <div class="competiton-tbody">
                 <?php
-                if($models):
-                    foreach ($models as $model):?>
-                        <?php if($model->getMembersCount() >0):?>
+                if($modelsClosed):
+                    foreach ($modelsClosed as $model):?>
                         <div class="competition-tr">
                             <div style="width: 70px;">
                                 <?php
@@ -205,13 +240,12 @@ use yii\widgets\LinkPager;
                             <div style="width: 60px; text-align: center; padding-top: 3px;"><i class="glyphicon glyphicon-user" style="color:#545454; padding-right: 10px;"></i><?= $model->getMembersCount();?></div>
                             <div style="width: 120px; text-align: center; padding-top: 3px;"><a href="/id<?= $model->id?>" class="more">Подробнее</a></div>
                         </div>
-                        <?php endif; ?>
                     <?php endforeach;?>
                 <?php else:?>
-                    Нет популярных!
+                    Нет конкурсов которые завершаются сегодня!
                 <?php endif;?>
                 <?php echo LinkPager::widget([
-                    'pagination' => $pages,
+                    'pagination' => $pagesClosed,
                 ]);?>
             </div>
         </div>
