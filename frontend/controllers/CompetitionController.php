@@ -78,7 +78,15 @@ class CompetitionController extends Controller
     public function actionList()
     {
         // выполняем запрос
-        $queryToDay = Competition::find()->where(['open' => true, "active" => true, "created_date" => date('Y-m-d')]);
+        $queryToDay = Competition::find()
+            ->select([
+                '{{competition}}.*', // получить все атрибуты конкурса
+                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+            ])
+            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+            ->where(['open' => true, "active" => true])
+            ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))]);
         $queryPop = Competition::find()
             ->select([
                 '{{competition}}.*', // получить все атрибуты конкурса
@@ -111,6 +119,7 @@ class CompetitionController extends Controller
             ->all();
         $modelsToDay = $queryToDay->offset($pagesToDay->offset)
             ->limit($pagesToDay->limit)
+            ->orderBy(['competitionuserscount'=>SORT_DESC])
             ->all();
         $modelsPop = $queryPop->offset($pagesPop->offset)
             ->limit($pagesPop->limit)
