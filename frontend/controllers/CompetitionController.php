@@ -87,9 +87,10 @@ class CompetitionController extends Controller
         $countQueryClosed = clone $queryClosed;
 
         // подключаем класс Pagination, выводим по 10 пунктов на страницу
-        $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
-        $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
+
+            $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
+            $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+            $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
 
         // приводим параметры в ссылке к ЧПУ
         $pagesToDay->pageSizeParam = false;

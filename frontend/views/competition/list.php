@@ -16,7 +16,7 @@ use yii\widgets\LinkPager;
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Топ новых</a></li>
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Завершающиеся</a></li>
         <!--<li role="presentation"><a href="#closed" aria-controls="closed" role="tab" data-toggle="tab">Завершившиеся</a></li>-->
-        <li role="presentation" class="active col-md-4"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Топ популярных</a></li>
+        <!--<li role="presentation" class="active col-md-4"><a href="#rating" aria-controls="rating" role="tab" data-toggle="tab">Топ популярных</a></li>-->
     </ul>
     
     <!-- Tab panes -->
