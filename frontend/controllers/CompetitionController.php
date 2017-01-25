@@ -77,74 +77,89 @@ class CompetitionController extends Controller
     }
     public function actionList()
     {
-        $queryPop = Competition::find()
-            ->select([
-                '{{competition}}.*', // получить все атрибуты конкурса
-                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
-            ])
-            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
-            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-            ->where(['open' => true, "active" => true]);
-        
-        $countQueryPop = clone $queryPop;
+        $link = '';
+        $get = Yii::$app->request->get('tab');
+        if(isset($get)){
+            $link = $get;
+        }
+        switch ($link) {
+            case 'finish':
+                $query = Competition::find()
+                    ->select([
+                        '{{competition}}.*', // получить все атрибуты конкурса
+                        'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+                    ])
+                    ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+                    ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+                    ->where(['open' => true, "active" => true]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                // приводим параметры в ссылке к ЧПУ
+                $pages->pageSizeParam = false;
 
-        $pagesPop = new Pagination(['totalCount' => $countQueryPop->count(), 'pageSize' => 10]);
+                $models = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy(['competitionuserscount'=>SORT_DESC])
+                    ->all();
+                break;
+            case 'new':
+                $query = Competition::find()
+                    ->select([
+                        '{{competition}}.*', // получить все атрибуты конкурса
+                        'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+                    ])
+                    ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+                    ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                $pages->pageSizeParam = false;
+                $models = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy(['competitionuserscount'=>SORT_DESC])
+                    ->all();
+                break;
+            case 'finish':
+                $query = Competition::find()->where(['>','date',date('Y-m-d')]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                $pages->pageSizeParam = false;
 
-        // приводим параметры в ссылке к ЧПУ
-        $pagesPop->pageSizeParam = false;
+                $models = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy(['date'=>SORT_ASC])
+                    ->all();
+                break;
+            default:
+                $query = Competition::find()
+                    ->select([
+                        '{{competition}}.*', // получить все атрибуты конкурса
+                        'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+                    ])
+                    ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+                    ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+                    ->where(['open' => true, "active" => true]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                // приводим параметры в ссылке к ЧПУ
+                $pages->pageSizeParam = false;
 
-        $modelsPop = $queryPop->offset($pagesPop->offset)
-            ->limit($pagesPop->limit)
-            ->orderBy(['competitionuserscount'=>SORT_DESC])
-            ->all();
+                $models = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy(['competitionuserscount'=>SORT_DESC])
+                    ->all();   
+        }
         
         return $this->render('list',[
-            'modelsPop' => $modelsPop,
-            'pagesPop' => $pagesPop,
+            'link' => $link,
+            'models' => $models,
+            'pages' => $pages,
+
         ]);
 
     }
-    public function actionNew()
-    {
-        $queryToDay = Competition::find()
-            ->select([
-                '{{competition}}.*', // получить все атрибуты конкурса
-                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
-            ])
-            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
-            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-            ->where(['open' => true, "active" => true])
-            ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))]);
-        $countQueryToDay = clone $queryToDay;
-        $pagesToDay = new Pagination(['totalCount' => $countQueryToDay->count(), 'pageSize' => 10]);
-        $pagesToDay->pageSizeParam = false;
-        $modelsToDay = $queryToDay->offset($pagesToDay->offset)
-            ->limit($pagesToDay->limit)
-            ->orderBy(['competitionuserscount'=>SORT_DESC])
-            ->all();
-        
-        return $this->render("new", [
-            'modelsToDay' => $modelsToDay,
-            'pagesToDay' => $pagesToDay,
-        ]);
-    }
-    public function actionFinish()
-    {
-        $queryClosed = Competition::find()->where(['>','date',date('Y-m-d')]);
-        $countQueryClosed = clone $queryClosed;
-        $pagesClosed = new Pagination(['totalCount' => $countQueryClosed->count(), 'pageSize' => 10]);
-        $pagesClosed->pageSizeParam = false;
-
-        $modelsClosed = $queryClosed->offset($pagesClosed->offset)
-            ->limit($pagesClosed->limit)
-            ->orderBy(['date'=>SORT_ASC])
-            ->all();
-
-        return $this->render('finish',[
-            'modelsClosed' => $modelsClosed,
-            'pagesClosed' => $pagesClosed,
-        ]);
-    }
+    
 
     public function actionIndex()
     {
