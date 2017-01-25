@@ -7,7 +7,7 @@
 use yii\widgets\ListView;
 
 $this->title = "Список участников";
-$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
+$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = ["label" => $competition->name, "url" => "/id".$competition->id];
 $this->params['breadcrumbs'][] = "Список участников";
 

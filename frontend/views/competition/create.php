@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Заполните форму конкурса';
-$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
+$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = $this->title;
 
 //$this->registerJsFile("/plugins/dropzone.js"); 

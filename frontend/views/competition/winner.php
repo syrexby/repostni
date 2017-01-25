@@ -6,7 +6,7 @@ use yii\bootstrap\Html;
 use yii\bootstrap\Modal;
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
+$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = ["label" => $this->title, "url" => "/competition/view?id=" . $model->id];
 $this->params['breadcrumbs'][] = 'Выбор победителя конкурса';
 

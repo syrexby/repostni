@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 
 $this->title = "Мои конкурсы";
-$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
+$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

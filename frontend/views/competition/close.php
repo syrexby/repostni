@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition"];
+$this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = ["label" => $this->title, "url" => "/competition/view?id=" . $model->id];
 $this->params['breadcrumbs'][] = 'Завершение конкурса';
 
