@@ -83,7 +83,7 @@ class CompetitionController extends Controller
             $link = $get;
         }
         switch ($link) {
-            case 'finish':
+            case 'popular':
                 $query = Competition::find()
                     ->select([
                         '{{competition}}.*', // получить все атрибуты конкурса
