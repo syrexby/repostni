@@ -133,14 +133,23 @@ class CompetitionController extends Controller
                     ->all();
                 break;*/
             case 'today':
-                $query = Competition::find()->where(['=','date',date('Y-m-d')]);
+                $query = Competition::find()
+                    ->select([
+                        '{{competition}}.*', // получить все атрибуты конкурса
+                        'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+                    ])
+                    ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+                    ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['=','{{competition}}.date',date('Y-m-d')]);
+                //$query = Competition::find()->where(['=','date',date('Y-m-d')]);
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
                 $pages->pageSizeParam = false;
 
                 $models = $query->offset($pages->offset)
                     ->limit($pages->limit)
-                    ->orderBy(['date'=>SORT_ASC])
+                    ->orderBy(['competitionuserscount'=>SORT_DESC])
                     ->all();
                 break;
             default:

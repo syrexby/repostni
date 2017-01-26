@@ -99,7 +99,17 @@ class SiteController extends Controller
         
         //$model = Competition::find()->where(['open' => true, "active" => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
         //var_dump($mod);
-        $modelToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')])->limit(4)->all();
+
+        $modelToDay = Competition::find()
+            ->select([
+                '{{competition}}.*', // получить все атрибуты конкурса
+                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+            ])
+            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+            ->where(['open' => true, "active" => true])
+            ->andWhere(['=','{{competition}}.date',date('Y-m-d')])->orderBy(['competitionuserscount'=>SORT_DESC])->limit(4)->all();
+        //$modelToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')])->limit(4)->all();
         //топ новых конкурсов
         if ($model) {
                 $i = 0;
