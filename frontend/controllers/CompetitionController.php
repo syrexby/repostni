@@ -94,7 +94,11 @@ class CompetitionController extends Controller
                     ->where(['open' => true, "active" => true])
                     ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
                 $countQuery = clone $query;
-                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                if($countQuery->count()<=150){
+                    $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                }else{
+                    $pages = new Pagination(['totalCount' => 150, 'pageSize' => 10]);
+                }
                 // приводим параметры в ссылке к ЧПУ
                 $pages->pageSizeParam = false;
 
@@ -114,7 +118,11 @@ class CompetitionController extends Controller
                     ->where(['open' => true, "active" => true])
                     ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))]);
                 $countQuery = clone $query;
-                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                if($countQuery->count()<=150){
+                    $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                }else{
+                    $pages = new Pagination(['totalCount' => 150, 'pageSize' => 10]);
+                }
                 $pages->pageSizeParam = false;
                 $models = $query->offset($pages->offset)
                     ->limit($pages->limit)
@@ -144,7 +152,11 @@ class CompetitionController extends Controller
                     ->andWhere(['=','{{competition}}.date',date('Y-m-d')]);
                 //$query = Competition::find()->where(['=','date',date('Y-m-d')]);
                 $countQuery = clone $query;
-                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                if($countQuery->count()<=150){
+                    $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                }else{
+                    $pages = new Pagination(['totalCount' => 150, 'pageSize' => 10]);
+                }
                 $pages->pageSizeParam = false;
 
                 $models = $query->offset($pages->offset)
@@ -163,7 +175,12 @@ class CompetitionController extends Controller
                     ->where(['open' => true, "active" => true])
                     ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
                 $countQuery = clone $query;
-                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                if($countQuery->count()<=150){
+                    $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                }else{
+                    $pages = new Pagination(['totalCount' => 150, 'pageSize' => 10]);
+                }
+                
                 // приводим параметры в ссылке к ЧПУ
                 $pages->pageSizeParam = false;
 
