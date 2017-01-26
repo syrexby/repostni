@@ -15,14 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="competition-list">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <!--<li role="presentation" class="active"><a href="?tab=popular" aria-controls="home" role="tab" data-toggle="tab">Топ популярных</a></li>
-        <li role="presentation"><a href="?tab=new" aria-controls="profile" role="tab" data-toggle="tab">Топ новых</a></li>
-        <li role="presentation"><a href="?tab=finish" aria-controls="rating" role="tab" data-toggle="tab">Завершающиеся</a></li>-->
-        
         <li role="presentation" class="<?php if($link == '' or $link == 'popular'){ echo 'active';};?>"><a href="<?= Url::to(['competition/list']);?>?tab=popular">Топ популярных</a></li>
         <li role="presentation" class="<?php if($link == 'new'){ echo 'active';};?>"><a href="<?= Url::to(['competition/list']);?>?tab=new">Топ новых</a></li>
-        <li role="presentation" class="<?php if($link == 'finish'){ echo 'active';};?>"><a href="<?= Url::to(['competition/list']);?>?tab=finish">Завершающиеся</a></li>
-
+        <li role="presentation" class="<?php if($link == 'today'){ echo 'active';};?>"><a href="<?= Url::to(['competition/list']);?>?tab=today">Сегодня заканчиваются</a></li>
+        <!--<li role="presentation" class="<?php /*if($link == 'finish'){ echo 'active';};*/?>"><a href="<?/*= Url::to(['competition/list']);*/?>?tab=finish">Завершающиеся</a></li>-->
     </ul>
     
     

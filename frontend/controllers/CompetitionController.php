@@ -91,7 +91,8 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true]);
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
                 // приводим параметры в ссылке к ЧПУ
@@ -120,8 +121,19 @@ class CompetitionController extends Controller
                     ->orderBy(['competitionuserscount'=>SORT_DESC])
                     ->all();
                 break;
-            case 'finish':
+            /*case 'finish':
                 $query = Competition::find()->where(['>','date',date('Y-m-d')]);
+                $countQuery = clone $query;
+                $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+                $pages->pageSizeParam = false;
+
+                $models = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy(['date'=>SORT_ASC])
+                    ->all();
+                break;*/
+            case 'today':
+                $query = Competition::find()->where(['=','date',date('Y-m-d')]);
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
                 $pages->pageSizeParam = false;
@@ -139,7 +151,8 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true]);
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
                 $countQuery = clone $query;
                 $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
                 // приводим параметры в ссылке к ЧПУ

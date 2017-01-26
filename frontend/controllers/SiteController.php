@@ -22,7 +22,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-
+use common\models\search\CompetitionUser as CompetitionUserSearch;
+use common\models\search\Competition as CompetitionSearch;
 /**
  * Site controller
  */
@@ -86,7 +87,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = Competition::find()->where(['open' => true, "active" => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
+        $model = Competition::find()
+            ->select([
+                '{{competition}}.*', // получить все атрибуты конкурса
+                'COUNT({{competition_user}}.id) AS competitionUsersCount' // вычислить количество участников
+            ])
+            ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
+            ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
+            ->where(['open' => true, "active" => true])
+            ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))])->orderBy(['competitionuserscount'=>SORT_DESC])->limit(4)->all();
+        
+        //$model = Competition::find()->where(['open' => true, "active" => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
+        //var_dump($mod);
         $modelToDay = Competition::find()->where(['open' => true, "active" => true, 'date' => date('Y-m-d')])->limit(4)->all();
         //топ новых конкурсов
         if ($model) {
