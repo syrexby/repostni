@@ -83,6 +83,12 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                         <?php
                         $datetime1 = new DateTime();
                         ?>
+                        <?php
+                            //var_dump($this->params['concurs']);die;
+                        ?>
+                        <?php if(!isset($this->params['concurs'])):?>
+                            <p style="color:white; font-weight: bold; font-size: 15px;">Нет новых конкурсов!</p>
+                        <?php else: ?>    
                         <?php foreach ($this->params['concurs'] as $concurs){?>
                         <div class="index-concurs">
                             <a href="/id<?= $concurs['id'];?>">
@@ -121,6 +127,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
                             </a>
                         </div>
                         <?php }?>
+                        <?php endif; ?>
                     </div>
                     
                     <div role="tabpanel" class="tab-pane" id="profile">
