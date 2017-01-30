@@ -91,8 +91,8 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true])
-                    ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
+                    ->where(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d')])
+                    ->orWhere(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d', strtotime('+1 day'))]);
                 $countQuery = clone $query;
                 if($countQuery->count()<=150){
                     $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -172,8 +172,8 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true])
-                    ->andWhere(['>','{{competition}}.date',date('Y-m-d')]);
+                    ->where(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d')])
+                    ->orWhere(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d', strtotime('+1 day'))]);
                 $countQuery = clone $query;
                 if($countQuery->count()<=150){
                     $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -302,7 +302,7 @@ class CompetitionController extends Controller
                     $img->save($origin, ['quality' => 100]);
                     $file->clear();
                 }
-
+               
                 if (isset($_POST["Sponsor"])) {
                     foreach ($_POST["Sponsor"] as $sponsor) {
 
@@ -312,7 +312,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionSponsor();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-//                        $sModel->url = trim($sponsor["url"]);
+                        $sModel->url = trim($sponsor["url"]);
                         $sModel->save();
                     }
                 }
@@ -393,7 +393,7 @@ class CompetitionController extends Controller
                         $sModel = new CompetitionSponsor();
                         $sModel->competition_id = $model->id;
                         $sModel->name = trim($sponsor["name"]);
-//                        $sModel->url = trim($sponsor["url"]);
+                        $sModel->url = trim($sponsor["url"]);
                         $sModel->save();
                     }
                 }

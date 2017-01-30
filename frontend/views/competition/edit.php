@@ -110,11 +110,11 @@ $videoInfo = '<div class="video-info">
                 <input type="text" class="form-control" maxlength="20" name="Prize[<?= $i ?>][name]"
                        value="<?= Html::encode($prize->name) ?>" placeholder="Название приза">
             </div>
-            <div class="form-group field-competition-prize">
-                <div class="form-group"><input type="text" class="form-control" name="Prize[<?= $i ?>][url]"
-                                               value="<?= Html::encode($prize->url) ?>"
+            <!--<div class="form-group field-competition-prize">
+                <div class="form-group"><input type="text" class="form-control" name="Prize[<?/*= $i */?>][url]"
+                                               value="<?/*= Html::encode($prize->url) */?>"
                                                placeholder="Ссылка на приз (не обязательно)"></div>
-            </div>
+            </div>-->
         </div>
         <?php
         $i++;

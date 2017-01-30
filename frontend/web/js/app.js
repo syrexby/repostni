@@ -276,8 +276,8 @@ $(document).ready(function () {
         var html = '<div class="prize"><div class="form-group field-competition-prize">' +
             '<label class="control-label">' + prizeCount + ' место</label>' +
             '<input type="text" maxlength="20" class="form-control" name="Prize[' + prizeCount + '][name]" placeholder="Название приза"></div>' +
-            '<div class="form-group field-competition-prize"><div class="form-group">' +
-            '<input type="text" class="form-control" name="Prize[' + prizeCount + '][url]" placeholder="Ссылка на приз (не обязательно)"></div></div></div>';
+            /*'<div class="form-group field-competition-prize"><div class="form-group">' +
+            '<input type="text" class="form-control" name="Prize[' + prizeCount + '][url]" placeholder="Ссылка на приз (не обязательно)"></div></div>*/'</div>';
         $("#prize-layer").append(html);
         return false;
     });
