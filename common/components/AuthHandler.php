@@ -85,11 +85,16 @@ class AuthHandler
 
 
         if ($competition) {
+//            echo '<pre>';
+//            var_dump($user);
+//            echo '</pre>';
+//            die;
             Yii::$app->session->remove("competition_member");
             if (!$user->country_id) {
-                Yii::$app->session->set("competition_user_name", $user->full_name);
-                Yii::$app->session->set("competition_user_url", $userUrl);
-                return Yii::$app->response->redirect("/id" . $competition);
+                $user->country_id = 3;
+//                Yii::$app->session->set("competition_user_name", $user->full_name);
+//                Yii::$app->session->set("competition_user_url", $userUrl);
+//                return Yii::$app->response->redirect("/id" . $competition);
             }
             $comModel = Competition::find()->where(["id" => $competition, "active" => true, "open" => true])->one();
             if ($comModel) {

@@ -9,7 +9,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = ["label" => $this->title, "url" => "/competition/view?id=" . $model->id];
 $this->params['breadcrumbs'][] = 'Выбор победителя конкурса';
-
+$this->params['image'] = $model->photoFile ? $model->photoFile->getOriginUrl() : '/img/blank.png';
 ?>
 
 

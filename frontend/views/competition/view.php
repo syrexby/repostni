@@ -12,6 +12,8 @@ $model->name = \yii\helpers\StringHelper::truncate($model->name, 50);
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ["label" => "Конкурсы", "url" => "/competition/list"];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['image'] = $model->photoFile ? $model->photoFile->getOriginUrl() : 'http://'.$_SERVER['SERVER_NAME'].'/img/blank.png';
+$this->params['title'] = !$model->open ? 'Итоги конкурса «' . $this->title . '»': $this->title;
 $dataImage = $model->photoFile ? $model->photoFile->getUrl(636, 318) : '';
 $model->description = nl2br(stripslashes($model->description));
 $model->description = preg_replace('#(?<!\])\bhttp://[^\s\[<]+#i',

@@ -91,8 +91,9 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d')])
-                    ->orWhere(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d', strtotime('+1 day'))]);
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['<=', "created_date", date('Y-m-d H:i:s', strtotime('+35 days'))])
+                    ->andWhere(['>=', "{{competition}}.date", date('Y-m-d')]);
                 $countQuery = clone $query;
                 if($countQuery->count()<=150){
                     $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -116,7 +117,8 @@ class CompetitionController extends Controller
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
                     ->where(['open' => true, "active" => true])
-                    ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))]);
+                    ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-7 days'))])
+                    ->andWhere(['>=', "{{competition}}.date", date('Y-m-d')]);
                 $countQuery = clone $query;
                 if($countQuery->count()<=150){
                     $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -172,8 +174,9 @@ class CompetitionController extends Controller
                     ])
                     ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
                     ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
-                    ->where(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d')])
-                    ->orWhere(['open' => true, "active" => true,'{{competition}}.date' => date('Y-m-d', strtotime('+1 day'))]);
+                    ->where(['open' => true, "active" => true])
+                    ->andWhere(['<=', "created_date", date('Y-m-d H:i:s', strtotime('+35 days'))])
+                    ->andWhere(['>=', "{{competition}}.date", date('Y-m-d')]);
                 $countQuery = clone $query;
                 if($countQuery->count()<=150){
                     $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);

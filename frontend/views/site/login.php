@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Авторизация';
+$this->title = 'Вход для организаторов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1 style="text-align: center"><?= $this->title?></h1>
@@ -37,4 +37,4 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::submitButton('Войти', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
                 </div>
 
-            <?php ActiveForm::end(); ?>
+             <?php ActiveForm::end(); ?> 

@@ -18,7 +18,10 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=1000">
-    <meta property="og:image" content="http://repostni.com/img/logo.png">
+    <meta property="og:image" content="<?= isset($this->params['image']) ? $this->params['image'] : '/img/logo.png' ?>">
+    <meta property="og:title" content="<?= isset($this->params['title']) ? $this->params['title'] : Html::encode($this->title) ?>">
+    <meta property="og:site_name" content="Repostni.com">
+    <meta property="og:locale" content="ru_RU">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?> | repostni</title>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

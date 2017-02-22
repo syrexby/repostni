@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -51,7 +51,7 @@ $st2 = substr($stat, (strlen($stat) - 1), 1);
 <div class="container index-free-concurs">
     <div class="row">
         <div class="col-md-6">
-            <iframe width="100%" height="280px" src="https://www.youtube.com/embed/grFRFHNu0Yc" frameborder="0" allowfullscreen></iframe>
+            <iframe width="100%" height="280px" src="https://www.youtube.com/embed/tQ-YBTmwLsE?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="col-md-6">
             <p class="index-free-concurs-text">Бесплатный и удобный сервис для проведения конкурсов</p>

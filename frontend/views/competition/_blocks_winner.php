@@ -36,7 +36,7 @@ use yii\bootstrap\Modal;
             </div>
         <?php } ?>
     </div>
-    <?php if(!$model->videoUrlFinal()) {?>
+    <?php if(!$model->videoUrlFinal() && $model->isMy()) {?>
     <div class="video-final">
         <?php
         //var_dump($model->video_url); die();
@@ -64,7 +64,7 @@ use yii\bootstrap\Modal;
         Modal::end();
         ?>
     </div>
-    <?php } else{ ?>
+    <?php } elseif($model->isMy()){ ?>
     <div class="video-final">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $model->videoUrlFinal() ?>" frameborder="0" allowfullscreen></iframe>
     </div>

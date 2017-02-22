@@ -20,7 +20,8 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
 <h1><?= $this->title ?> <? if(!empty($oh2) or !empty($oh2)):?><? endif;?></h1>
 <div class="block" id="block-0">
     <div class="concurs-date">
-        <?=$d1 = date('d.m.Y')?> -
+        <?php $time = strtotime($model->created_date);
+        echo $d2 = date("d.m.Y", $time);?> -
         <?php
         $time = strtotime($model->date);
         echo $d2 = date("d.m.Y", $time);
@@ -75,9 +76,6 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
             </div>
             <div class="uchastie">
             <?php
-            if (Yii::$app->session->hasFlash("competition")) {
-                echo '<p style="color: #74bd00; font-size: 24px; text-align: center;">'.Yii::$app->session->getFlash("competition").'</p>';
-            } else {
                 Modal::begin([
                     'header' => '<h2>Стать участником</h2>',
                     "id" => "member",
@@ -94,18 +92,17 @@ $oh3 = isset($row[1]) ? \yii\helpers\StringHelper::truncate(trim($row[1]), 17) :
                 <p><a href="/competition/member?id=<?= $model->id ?>&s=vkontakte"><img src="/img/vk.png"/></a> <a href="/competition/member?id=<?= $model->id ?>&s=facebook"><img src="/img/fb.png"/></a> <a
                         href="/competition/member?id=<?= $model->id ?>&s=twitter"><img
                             src="/img/tw.png"/></a></p>
-                <h2>или</h2>
-                <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); ?>
-                <?= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") ?>
-                <?= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") ?>
+                <!-- <h2>или</h2>
+                <?php /*$form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); */?>
+                <?/*= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") */?>
+                <?/*= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") */?>
                 <div class="form-group" style="text-align: center;">
-                    <?= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) ?>
+                    <?/*= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) */?>
                 </div>
-                <?php ActiveForm::end(); ?>
+                --><?php /*ActiveForm::end(); */?>
                 
                 <?php
                 Modal::end();
-            }
             ?>
             </div>
         <?php } else if(!$model->isMy()){  ?>
@@ -402,9 +399,6 @@ else {
                 if (!$model->isMy() && Yii::$app->user->isGuest) { ?>
                     <div class="uchastie">
                         <?php
-                        if (Yii::$app->session->hasFlash("competition")) {
-                            echo '<p style="color: #74bd00; font-size: 24px; text-align: center;">'.Yii::$app->session->getFlash("competition").'</p>';
-                        } else {
                             Modal::begin([
                                 'header' => '<h2>Стать участником</h2>',
                                 "id" => "member",
@@ -421,18 +415,17 @@ else {
                             <p><a href="/competition/member?id=<?= $model->id ?>&s=vkontakte"><img src="/img/vk.png"/></a> <a href="/competition/member?id=<?= $model->id ?>&s=facebook"><img src="/img/fb.png"/></a> <a
                                     href="/competition/member?id=<?= $model->id ?>&s=twitter"><img
                                         src="/img/tw.png"/></a></p>
-                            <h2>или</h2>
-                            <?php $form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); ?>
-                            <?= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") ?>
-                            <?= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") ?>
+                            <!--<h2>или</h2>
+                            <?php /*$form = ActiveForm::begin(['id' => 'form-member', 'options' => ['enctype' => 'multipart/form-data']]); */?>
+                            <?/*= $form->field($formModel, 'name')->textInput(["placeholder" => "Ваше имя"])->label("Ваше имя") */?>
+                            <?/*= $form->field($formModel, 'url')->textInput(["placeholder" => "Ссылка на Ваш профиль"])->label("Ссылка на профиль в соц. сети") */?>
                             <div class="form-group" style="text-align: center;">
-                                <?= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) ?>
+                                <?/*= Html::submitButton('Принять участие', ['class' => 'btn btn-success btn-lg uchastie-ok', 'name' => 'member-button']) */?>
                             </div>
-                            <?php ActiveForm::end(); ?>
+                            --><?php /*ActiveForm::end(); */?>
 
                             <?php
                             Modal::end();
-                        }
                         ?>
                     </div>
                 <?php } else if(!$model->isMy()){  ?>

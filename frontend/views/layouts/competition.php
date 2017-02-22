@@ -11,7 +11,10 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
-
+//echo '<pre>';
+//var_dump($this);
+//echo '</pre>';
+//die;
 $title = $this->title . " | repostni";
 ?>
 
@@ -23,6 +26,10 @@ $title = $this->title . " | repostni";
     <meta name="viewport" content="width=1000">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($title) ?></title>
+    <meta property="og:image" content="<?= isset($this->params['image']) ? $this->params['image'] : '/img/blank.png' ?>">
+    <meta property="og:title" content="<?= Html::encode($this->title) ?>">
+    <meta property="og:site_name" content="Repostni.com">
+    <meta property="og:locale" content="ru_RU">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

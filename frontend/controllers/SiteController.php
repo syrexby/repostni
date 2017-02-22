@@ -76,6 +76,7 @@ class SiteController extends Controller
             'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'onAuthSuccess'],
+                'cancelUrl' => '/error.php',
             ],
         ];
     }
@@ -95,7 +96,8 @@ class SiteController extends Controller
             ->joinWith('competitionUsers') // обеспечить построение промежуточной таблицы
             ->groupBy('{{competition}}.id') // сгруппировать результаты, чтобы заставить агрегацию работать
             ->where(['open' => true, "active" => true])
-            ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-1 day'))])->orderBy(['competitionuserscount'=>SORT_DESC])->limit(4)->all();
+            ->andWhere(['>=', "created_date", date('Y-m-d H:i:s', strtotime('-7 days'))])
+            ->andWhere(['>=', "{{competition}}.date", date('Y-m-d')])->orderBy(['competitionuserscount'=>SORT_DESC])->limit(4)->all();
         
         //$model = Competition::find()->where(['open' => true, "active" => true])->limit(4)->orderby(['id'=>SORT_DESC])->all();
         //var_dump($mod);
@@ -347,6 +349,8 @@ class SiteController extends Controller
 
     public function onAuthSuccess($client)
     {
+//        die('asdas');
+
 
         (new AuthHandler($client))->handle();
     }
