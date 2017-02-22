@@ -37,7 +37,10 @@ body {
 .btn.btn-lg, .btn.btn-success, #cancel-upload-image {
     font-size: 18px;
 }
-
+.login__sub-header{
+    font-size: 1.6em;
+    margin-bottom: .5em;
+}
 .navbar .col-md-5 {
     padding: 10px 0;
 }
